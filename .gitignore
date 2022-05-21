@@ -1,0 +1,5 @@
+.direnv
+.vscode
+result*
+config.json.bak
+__pycache__

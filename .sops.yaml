@@ -1,0 +1,8 @@
+keys:
+  - &main       7D2F4C6B9A8300CCDDB641FDDF14B55A7A29C30F
+
+creation_rules:
+  - path_regex: ^update/secrets\.yaml$
+    key_groups:
+    - pgp:
+      - *main
