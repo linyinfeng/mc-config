@@ -446,6 +446,54 @@
       ]
     },
     {
+      "name": "Fabric Tailor",
+      "modrinthId": "g8w1NapE",
+      "versionTypeRegex": "release",
+      "filenameRegex": ".*",
+      "version": "1.8.2",
+      "files": [
+        {
+          "filename": "fabrictailor-1.8.2.jar",
+          "file": {
+            "url": "https://cdn.modrinth.com/data/g8w1NapE/versions/1.8.2/fabrictailor-1.8.2.jar",
+            "sha512": "5381968ad1bbb2cfa120cf2ad2cd65e3f5fbb96ac3a26df88cb2f021daabe7e0ea85c489695c492dff13edfe945a6a888b5fcf65e6aec82499f9ab924e73e419"
+          }
+        }
+      ]
+    },
+    {
+      "name": "HealthCare",
+      "modrinthId": "NNqujQWr",
+      "versionTypeRegex": "release",
+      "filenameRegex": ".*",
+      "version": "1.0.11",
+      "files": [
+        {
+          "filename": "healthcare-1.0.11.jar",
+          "file": {
+            "url": "https://cdn.modrinth.com/data/NNqujQWr/versions/1.0.11/healthcare-1.0.11.jar",
+            "sha512": "7d867ae75dda49b653a50e4542748960dd6b9090770a16b0480efb3b5f02bff3b53411596d7b312dda9ad5dc8b2e69af7da4dcde6b8b7680250221a7929d0d18"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Creeper Spores",
+      "modrinthId": "WSdgoMoj",
+      "versionTypeRegex": "release",
+      "filenameRegex": ".*",
+      "version": "1.8.0",
+      "files": [
+        {
+          "filename": "creeper-spores-1.8.0.jar",
+          "file": {
+            "url": "https://cdn.modrinth.com/data/WSdgoMoj/versions/1.8.0/creeper-spores-1.8.0.jar",
+            "sha512": "580d3d51367c571917a0ad366190af14fdd505ae8c7e1fcab6d869694da677a26290b88cd699722f9d7e967eab2df81bad2ab63a2f51d5a3bffcf1a15a3da251"
+          }
+        }
+      ]
+    },
+    {
       "name": "Roughly Enough Items",
       "curseForgeId": "310111",
       "versionTypeRegex": "release",
