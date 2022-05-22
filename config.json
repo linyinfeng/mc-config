@@ -414,6 +414,38 @@
       ]
     },
     {
+      "name": "Chunky Pregenerator",
+      "modrinthId": "fALzjamp",
+      "versionTypeRegex": "release",
+      "filenameRegex": ".*",
+      "version": "1.2.164",
+      "files": [
+        {
+          "filename": "Chunky-1.2.164.jar",
+          "file": {
+            "url": "https://cdn.modrinth.com/data/fALzjamp/versions/1.2.164/Chunky-1.2.164.jar",
+            "sha512": "5b39b3091df275a8dae7976f25adabd41ffb84d286ccdc8e4ffe18b1211d1b59ede088e5a17b28b9157fbd91a416b38732764f413b8951782d793059fcabb616"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Simpler Auth",
+      "modrinthId": "TYaqEeAP",
+      "versionTypeRegex": "release",
+      "filenameRegex": ".*",
+      "version": "1.5.0",
+      "files": [
+        {
+          "filename": "SimplerAuth-1.5.0.jar",
+          "file": {
+            "url": "https://cdn.modrinth.com/data/TYaqEeAP/versions/1.5.0/SimplerAuth-1.5.0.jar",
+            "sha512": "68a277cc8a5b4257fa1b3d8aa2f82f8d2823b02ba42a5937aac2ec4fd2fcf719c6ab8175d9acffb1184737c46d00b0c0d0184f8a69160f13e6b81e7a821d190c"
+          }
+        }
+      ]
+    },
+    {
       "name": "Roughly Enough Items",
       "curseForgeId": "310111",
       "versionTypeRegex": "release",
@@ -499,6 +531,22 @@
           "file": {
             "url": "https://edge.forgecdn.net/files/3697/298/worldedit-mod-7.2.10.jar",
             "sha1": "40fc7f7a734ccbd53365bc91c1a17fafcec1965d"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Dynmap",
+      "curseForgeId": "59433",
+      "fakeGameVersion": "1.18.1",
+      "versionTypeRegex": "release",
+      "version": "v3.3.2 for Fabric 1.18/1.18.1",
+      "files": [
+        {
+          "filename": "Dynmap-3.3.2-fabric-1.18.jar",
+          "file": {
+            "url": "https://edge.forgecdn.net/files/3637/297/Dynmap-3.3.2-fabric-1.18.jar",
+            "sha1": "b4442c5b9a7e50c9babe132a0366ef9a176e6297"
           }
         }
       ]
