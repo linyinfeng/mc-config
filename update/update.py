@@ -52,6 +52,7 @@ def update(args, config):
 
 
 def update_server(args, server_cfg):
+    logging.info(f"updating minecraft...")
     ensure(server_cfg, "game", dict())
     if args.game_version is not None:
         server_cfg["game"]["version"] = args.game_version
@@ -75,6 +76,7 @@ def update_server(args, server_cfg):
         "sha1": server_file_info["sha1"],
     }
 
+    logging.info(f"updating fabric...")
     ensure(server_cfg, "fabricLoader", dict())
     loader_versions = get_fabric_meta("versions/loader")
     loader_version = fabric_first_stable(loader_versions)["version"]
@@ -91,6 +93,7 @@ def update_mods(args, game_version, mods_cfg):
     modrinth = ModrinthAPI()
     curse = CurseAPI()
     for mod_cfg in mods_cfg:
+        logging.info(f"updating mod '{mod_cfg['name']}'...")
         update_mod(args, modrinth, curse, game_version, mod_cfg)
 
 
@@ -99,6 +102,9 @@ def update_mod(args, modrinth, curse, game_version, mod_cfg):
     is_curse = "curseForgeId" in mod_cfg
     assert is_modrinth or is_curse
     assert not (is_modrinth and is_curse)
+
+    if "fakeGameVersion" in mod_cfg:
+        game_version = mod_cfg["fakeGameVersion"]
 
     if is_modrinth:
         update_mod_modrinth(args, modrinth, game_version, mod_cfg)
@@ -109,7 +115,7 @@ def update_mod(args, modrinth, curse, game_version, mod_cfg):
 def update_mod_modrinth(args, modrinth, game_version, mod_cfg):
     modrinth_id = mod_cfg["modrinthId"]
     compatible_versions = modrinth.get(
-        f"project/{modrinth_id}/version?loaders=['fabric']&game_versions=['{game_version}']"
+        f'project/{modrinth_id}/version?loaders=["fabric"]&game_versions=["{game_version}"]'
     )
 
     ensure(mod_cfg, "versionTypeRegex", "release")

@@ -241,13 +241,13 @@
       "modrinthId": "1bZhdhsH",
       "versionTypeRegex": "release",
       "filenameRegex": ".*",
-      "version": "forge-1.18-1.2.13",
+      "version": "fabric-1.18-1.2.13",
       "files": [
         {
-          "filename": "plasmovoice-forge-1.18-1.2.13.jar",
+          "filename": "plasmovoice-fabric-1.18-1.2.13.jar",
           "file": {
-            "url": "https://cdn.modrinth.com/data/1bZhdhsH/versions/forge-1.18-1.2.13/plasmovoice-forge-1.18-1.2.13.jar",
-            "sha512": "41393ddb01b53a8cc5d6c5a4498c3b3af3fee0fd8382aeee8febb8b7fd3197cbc376e78f9d47e52fac32219b9038bfa1ddff14fcc7e7c1f6b1e7999f03448472"
+            "url": "https://cdn.modrinth.com/data/1bZhdhsH/versions/fabric-1.18-1.2.13/plasmovoice-fabric-1.18-1.2.13.jar",
+            "sha512": "0731131d949a228075af47a236908206fdc8c2f1fb0e7e4f73253ea96c24de895640a16fb93fbe346e9b606cfdc8782988bb3291670e60e6917db109be94d44e"
           }
         }
       ]
@@ -257,13 +257,13 @@
       "modrinthId": "O7RBXm3n",
       "versionTypeRegex": "release",
       "filenameRegex": ".*",
-      "version": "forge-1.18.2-1.4.0",
+      "version": "fabric-1.18.2-1.4.0",
       "files": [
         {
-          "filename": "InventoryProfilesNext-forge-1.18.2-1.4.0.jar",
+          "filename": "InventoryProfilesNext-fabric-1.18.2-1.4.0.jar",
           "file": {
-            "url": "https://cdn.modrinth.com/data/O7RBXm3n/versions/forge-1.18.2-1.4.0/InventoryProfilesNext-forge-1.18.2-1.4.0.jar",
-            "sha512": "a56b660aee3fad0ee8b4f227c31f6adf59b7a406264740ea0d6e5ad818207d956fbb525574c237cb18a7d3dc35514ff5727975bfad1b0473d55b9db8a5481afe"
+            "url": "https://cdn.modrinth.com/data/O7RBXm3n/versions/fabric-1.18.2-1.4.0/InventoryProfilesNext-fabric-1.18.2-1.4.0.jar",
+            "sha512": "f8115da32e599909e26fe245101f18eee40f132646cc5ae2b242146cbe95de92c9218da1c5edba7937e00fcce1a95e7b1f155af6b5ffa8ece030be7151cf0962"
           }
         }
       ]
@@ -305,13 +305,13 @@
       "modrinthId": "XxWD5pD3",
       "versionTypeRegex": "release",
       "filenameRegex": ".*",
-      "version": "forge-11.0.0",
+      "version": "fabric-11.0.0",
       "files": [
         {
           "filename": "appliedenergistics2-11.0.0.jar",
           "file": {
-            "url": "https://cdn.modrinth.com/data/XxWD5pD3/versions/forge-11.0.0/appliedenergistics2-11.0.0.jar",
-            "sha512": "179f05bc518e4183784bbc915bccc6dc89139c1ed6c8808d5d7286bc23a6ec040277e6c22974a323ecd85e6b67775e1da427d5eccaf76b6b68d6017a5c006cc9"
+            "url": "https://cdn.modrinth.com/data/XxWD5pD3/versions/fabric-11.0.0/appliedenergistics2-11.0.0.jar",
+            "sha512": "7e608c5417fff79dac3d35b976da70c73a9c5bce8d704fe0f12cf115267cbf188e632a4bcbc34f395ec7538af03efff9c0e80ede8de4d7d0ba07a5d87fa68f21"
           }
         }
       ]
@@ -344,6 +344,39 @@
           "file": {
             "url": "https://cdn.modrinth.com/data/9s6osm5g/versions/6.2.57+fabric/cloth-config-6.2.57-fabric.jar",
             "sha512": "b74f821e4f4bc4ddd1e7ae2722a424d5d3c4f5f7932a1a8ff6695b6c30c3509c070b09df19424553648c6aeafcf68b923555f7ceba908a98e71dc8c7da6952d6"
+          }
+        }
+      ]
+    },
+    {
+      "name": "LuckPerms",
+      "modrinthId": "Vebnzrzj",
+      "fakeGameVersion": "1.18",
+      "versionTypeRegex": "release",
+      "filenameRegex": ".*",
+      "version": "5.3.86",
+      "files": [
+        {
+          "filename": "LuckPerms-Fabric-5.3.86.jar",
+          "file": {
+            "url": "https://cdn.modrinth.com/data/Vebnzrzj/versions/5.3.86/LuckPerms-Fabric-5.3.86.jar",
+            "sha512": "69f8539660850d9f25902d43c96f38717c9b592c555c66403d6203d783d260c7c85507580db4257b4cdee26769645f9a25b233eeb80ecd20b9cf103a03bbc75c"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Essential Commands",
+      "modrinthId": "6VdDUivB",
+      "versionTypeRegex": "release",
+      "filenameRegex": ".*",
+      "version": "0.23.0-mc1.18.2",
+      "files": [
+        {
+          "filename": "essential_commands-0.23.0-mc1.18.2.jar",
+          "file": {
+            "url": "https://cdn.modrinth.com/data/6VdDUivB/versions/0.23.0-mc1.18.2/essential_commands-0.23.0-mc1.18.2.jar",
+            "sha512": "5b33122026294211249cd2c27b69826d1c30b34339433f0b64e32f3f85bcd03b1aba255987daed7937bfb139aaee716c471683c813d52277267d54a1f662f58c"
           }
         }
       ]
@@ -419,21 +452,6 @@
           "file": {
             "url": "https://edge.forgecdn.net/files/3545/928/InventoryHUD-fabric-%5B1.18%5D%20-3.4.2.jar",
             "sha1": "86b117c3c6978013468adbeb3f74e98328febda1"
-          }
-        }
-      ]
-    },
-    {
-      "name": "Inventory Sorting",
-      "curseForgeId": "325471",
-      "versionTypeRegex": "release",
-      "version": "InventorySorter-1.8.6-1.18.jar",
-      "files": [
-        {
-          "filename": "InventorySorter-1.8.6-1.18.jar",
-          "file": {
-            "url": "https://edge.forgecdn.net/files/3669/320/InventorySorter-1.8.6-1.18.jar",
-            "sha1": "1bfb9f88cf6aee853ac06a5187a0137b69b0596b"
           }
         }
       ]
