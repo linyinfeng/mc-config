@@ -1,0 +1,28 @@
+name: "Nix flake check"
+on:
+  pull_request:
+  push:
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@main
+    - name: Install nix
+      uses: cachix/install-nix-action@master
+      with:
+        install_url: https://github.com/numtide/nix-unstable-installer/releases/latest/download/install
+        extra_nix_config: |
+          experimental-features = nix-command flakes
+    - name: Setup cachix
+      uses: cachix/cachix-action@master
+      with:
+        name: linyinfeng
+        signingKey: '${{ secrets.CACHIX_SIGNING_KEY }}'
+    - name: Nix flake check
+      run: nix flake check --verbose --print-build-logs
+    - name: Format check
+      run: |
+        nix develop --command black . --check
+        nix develop --command fd '.*\.nix$' --exec nixfmt --check

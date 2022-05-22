@@ -11,6 +11,8 @@
     in utils.mkFlake {
       inherit self inputs;
 
+      supportedSystems = [ "x86_64-linux" ];
+
       outputsBuilder = channels:
         let
           pkgs = channels.nixpkgs;
@@ -26,8 +28,9 @@
           packages = utils.flattenTree contents // {
             update = pkgs.callPackage ./update { };
           };
-          devShell = pkgs.mkShell {
-            packages = with pkgs; [ fup-repl sops poetry black nixfmt ];
+          checks = self.packages.${system};
+          devShells.default = pkgs.mkShell {
+            packages = with pkgs; [ fup-repl sops poetry black nixfmt fd ];
           };
         };
     };
