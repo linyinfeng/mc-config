@@ -382,12 +382,35 @@
       ]
     },
     {
-      "name": "Multiworld",
-      "modrinthId": "fgvoNDL1",
+      "name": "Minecraft Transit Railway",
+      "modrinthId": "XKPAmI6u",
+      "versionTypeRegex": "release",
+      "filenameRegex": ".*",
+      "version": "FABRIC-1.18.2-3.0.0",
+      "files": [
+        {
+          "filename": "MTR-fabric-1.18.2-3.0.0.jar",
+          "file": {
+            "url": "https://cdn.modrinth.com/data/XKPAmI6u/versions/1.18.2-3.0.0/MTR-fabric-1.18.2-3.0.0.jar",
+            "sha512": "aa331787c6469c20261f6b35e1db00eb521c0e1e417c0aafa27217c572be35a64af4a0b94691dcdf131520583f810963b4e6bab5685671a4207d92657ea17bd4"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Create Fabric",
+      "modrinthId": "Xbc0uyRg",
       "versionTypeRegex": "beta",
       "filenameRegex": ".*",
-      "version": null,
+      "version": "mc1.18.2_v0.4.1+576",
       "files": [
+        {
+          "filename": "create-mc1.18.2_v0.4.1+576.jar",
+          "file": {
+            "url": "https://cdn.modrinth.com/data/Xbc0uyRg/versions/mc1.18.2_v0.4.1+576/create-mc1.18.2_v0.4.1%2B576.jar",
+            "sha512": "8488b0789b96ea6922a5a31e4231fb4dc92064a1ae958a26bb878a963cfeee2093a339c217b5c3c42ea7afc4360dbf1237f62ca7b48182896f0889a11e02e66b"
+          }
+        }
       ]
     },
     {
@@ -461,6 +484,21 @@
           "file": {
             "url": "https://edge.forgecdn.net/files/3545/928/InventoryHUD-fabric-%5B1.18%5D%20-3.4.2.jar",
             "sha1": "86b117c3c6978013468adbeb3f74e98328febda1"
+          }
+        }
+      ]
+    },
+    {
+      "name": "WorldEdit",
+      "curseForgeId": "225608",
+      "versionTypeRegex": "release",
+      "version": "WorldEdit 7.2.10 (Forge/Fabric for MC 1.18.2)",
+      "files": [
+        {
+          "filename": "worldedit-mod-7.2.10.jar",
+          "file": {
+            "url": "https://edge.forgecdn.net/files/3697/298/worldedit-mod-7.2.10.jar",
+            "sha1": "40fc7f7a734ccbd53365bc91c1a17fafcec1965d"
           }
         }
       ]
