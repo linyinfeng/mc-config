@@ -13,4 +13,5 @@ in lib.makeScope newScope (self:
     fabric-libraries = callPackage ./fabric-libraries.nix { };
     mods = callPackage ./mods.nix { };
     mods-combined = callPackage ./mods-combined.nix { };
+    mods-zip = callPackage ./mods-zip.nix { };
   })
