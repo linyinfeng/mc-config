@@ -6,7 +6,6 @@ assert fabric-libraries != [ ];
 writeShellScriptBin "server" ''
   set -e
 
-  # echo "eula=true" > eula.txt
   ${jre}/bin/java \
     --class-path='${minecraft-server}:${
       lib.concatStringsSep ":" fabric-libraries

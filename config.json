@@ -414,22 +414,6 @@
       ]
     },
     {
-      "name": "Chunky Pregenerator",
-      "modrinthId": "fALzjamp",
-      "versionTypeRegex": "release",
-      "filenameRegex": ".*",
-      "version": "1.2.164",
-      "files": [
-        {
-          "filename": "Chunky-1.2.164.jar",
-          "file": {
-            "url": "https://cdn.modrinth.com/data/fALzjamp/versions/1.2.164/Chunky-1.2.164.jar",
-            "sha512": "5b39b3091df275a8dae7976f25adabd41ffb84d286ccdc8e4ffe18b1211d1b59ede088e5a17b28b9157fbd91a416b38732764f413b8951782d793059fcabb616"
-          }
-        }
-      ]
-    },
-    {
       "name": "Simpler Auth",
       "modrinthId": "TYaqEeAP",
       "versionTypeRegex": "release",
@@ -489,6 +473,22 @@
           "file": {
             "url": "https://cdn.modrinth.com/data/WSdgoMoj/versions/1.8.0/creeper-spores-1.8.0.jar",
             "sha512": "580d3d51367c571917a0ad366190af14fdd505ae8c7e1fcab6d869694da677a26290b88cd699722f9d7e967eab2df81bad2ab63a2f51d5a3bffcf1a15a3da251"
+          }
+        }
+      ]
+    },
+    {
+      "name": "BlueMap",
+      "modrinthId": "swbUV1cr",
+      "versionTypeRegex": "release",
+      "filenameRegex": ".*",
+      "version": "1.7.2-fabric-1.18",
+      "files": [
+        {
+          "filename": "BlueMap-1.7.2-fabric-1.18.jar",
+          "file": {
+            "url": "https://cdn.modrinth.com/data/swbUV1cr/versions/1.7.2-fabric-1.18/BlueMap-1.7.2-fabric-1.18.jar",
+            "sha512": "0bcfa19a14f706aa63c9934f52d72fa3a489a59da67f83d407ed5ba4c9da4ab36e9ec23399080bdf6cb2d8cf95d0dd6304d1950799043f3cc66c664e93992e91"
           }
         }
       ]
@@ -579,22 +579,6 @@
           "file": {
             "url": "https://edge.forgecdn.net/files/3697/298/worldedit-mod-7.2.10.jar",
             "sha1": "40fc7f7a734ccbd53365bc91c1a17fafcec1965d"
-          }
-        }
-      ]
-    },
-    {
-      "name": "Dynmap",
-      "curseForgeId": "59433",
-      "fakeGameVersion": "1.18.1",
-      "versionTypeRegex": "release",
-      "version": "v3.3.2 for Fabric 1.18/1.18.1",
-      "files": [
-        {
-          "filename": "Dynmap-3.3.2-fabric-1.18.jar",
-          "file": {
-            "url": "https://edge.forgecdn.net/files/3637/297/Dynmap-3.3.2-fabric-1.18.jar",
-            "sha1": "b4442c5b9a7e50c9babe132a0366ef9a176e6297"
           }
         }
       ]
