@@ -382,6 +382,15 @@
       ]
     },
     {
+      "name": "Multiworld",
+      "modrinthId": "fgvoNDL1",
+      "versionTypeRegex": "beta",
+      "filenameRegex": ".*",
+      "version": null,
+      "files": [
+      ]
+    },
+    {
       "name": "Roughly Enough Items",
       "curseForgeId": "310111",
       "versionTypeRegex": "release",
