@@ -28,10 +28,11 @@ jobs:
         nix develop --command fd '.*\.nix$' --exec nixfmt --check
     - name: Build mods-combined
       run: |
-        nix build .#mods-zip --out-link result-zip
-        cp result-zip mods.zip
-    - name: Update mods.zip
+        nix build .#mods-combined --out-link result-mods
+        mkdir mods
+        cp result-mods/* mods/
+    - name: Update mods
       uses: actions/upload-artifact@main
       with:
-        name: mods.zip
-        path: result-zip
+        name: mods
+        path: mods
