@@ -382,6 +382,23 @@
       ]
     },
     {
+      "name": "WTHIT",
+      "comment": "What The Hell Is That?",
+      "modrinthId": "6AQIaxuO",
+      "versionTypeRegex": "release",
+      "filenameRegex": ".*",
+      "version": "fabric-4.10.3",
+      "files": [
+        {
+          "filename": "wthit-fabric-4.10.3.jar",
+          "file": {
+            "url": "https://cdn.modrinth.com/data/6AQIaxuO/versions/fabric-4.10.3/wthit-fabric-4.10.3.jar",
+            "sha512": "2060dc0196209a37c5b4b0775b801bfcad756ac961a52f8a0f2c26247d78390a343e598f78dad3763707f00d326557e4cb60cef0133075ec191f73078f70e8fd"
+          }
+        }
+      ]
+    },
+    {
       "name": "Minecraft Transit Railway",
       "modrinthId": "XKPAmI6u",
       "versionTypeRegex": "release",
