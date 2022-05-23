@@ -432,6 +432,22 @@
       ]
     },
     {
+      "name": "Fabric Language Kotlin",
+      "modrinthId": "Ha28R6CL",
+      "versionTypeRegex": "release",
+      "filenameRegex": ".*",
+      "version": "1.7.2+kotlin.1.6.20",
+      "files": [
+        {
+          "filename": "fabric-language-kotlin-1.7.2+kotlin.1.6.20.jar",
+          "file": {
+            "url": "https://cdn.modrinth.com/data/Ha28R6CL/versions/1.7.2+kotlin.1.6.20/fabric-language-kotlin-1.7.2%2Bkotlin.1.6.20.jar",
+            "sha512": "6f1a711ec2d8dd6e541280591f87ace4c25097ccbd684c7b10ee31cc173d85d737e24dda0987c02024f79431c913ba1cbdffcf9278d3ea6db96790a8f45d896e"
+          }
+        }
+      ]
+    },
+    {
       "name": "Minecraft Transit Railway",
       "modrinthId": "XKPAmI6u",
       "versionTypeRegex": "release",
