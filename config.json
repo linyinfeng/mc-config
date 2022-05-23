@@ -415,6 +415,23 @@
       ]
     },
     {
+      "name": "UnifiedMetrics",
+      "modrinthId": "p1ewR5kV",
+      "fakeGameVersion": "1.18",
+      "versionTypeRegex": "release",
+      "filenameRegex": ".*",
+      "version": "0.3.4",
+      "files": [
+        {
+          "filename": "unifiedmetrics-platform-fabric-0.3.4.jar",
+          "file": {
+            "url": "https://cdn.modrinth.com/data/p1ewR5kV/versions/0.3.4/unifiedmetrics-platform-fabric-0.3.4.jar",
+            "sha512": "fadb2a4d6bf184cd85a1c86125463411eff4ab757e2974c253d12bf374ae9259a2e0ab547e5613815bd83525f5e1c58cdb8a35a384be7c3a22b83e87db000192"
+          }
+        }
+      ]
+    },
+    {
       "name": "Minecraft Transit Railway",
       "modrinthId": "XKPAmI6u",
       "versionTypeRegex": "release",
