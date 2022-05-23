@@ -399,6 +399,22 @@
       ]
     },
     {
+      "name": "bad packets",
+      "modrinthId": "ftdbN0KK",
+      "versionTypeRegex": "release",
+      "filenameRegex": ".*",
+      "version": "fabric-0.1.2",
+      "files": [
+        {
+          "filename": "badpackets-fabric-0.1.2.jar",
+          "file": {
+            "url": "https://cdn.modrinth.com/data/ftdbN0KK/versions/fabric-0.1.2/badpackets-fabric-0.1.2.jar",
+            "sha512": "0081091e3da2b13f9a7e6031b9d072c8368ca99626459b2ca2710835ed8848f746c4e47fbd6653b401bded04e738f8705982dc4eeb1433c33e58f5eb02e5df68"
+          }
+        }
+      ]
+    },
+    {
       "name": "Minecraft Transit Railway",
       "modrinthId": "XKPAmI6u",
       "versionTypeRegex": "release",
