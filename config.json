@@ -125,6 +125,40 @@
       ]
     },
     {
+      "name": "Reese's Sodium Options",
+      "modrinthId": "Bh37bMuy",
+      "versionTypeRegex": "release",
+      "filenameRegex": ".*",
+      "primaryFileOnly": true,
+      "version": "mc1.18.2-1.4.2",
+      "files": [
+        {
+          "filename": "reeses_sodium_options-mc1.18.2-1.4.2.jar",
+          "file": {
+            "url": "https://cdn.modrinth.com/data/Bh37bMuy/versions/mc1.18.2-1.4.2/reeses_sodium_options-mc1.18.2-1.4.2.jar",
+            "sha512": "38fd05e00dbcd75734b6918875723d625819830105109e267f3d45ed5e08f2bcfb98bfed24364969c10ff061546480644470e908ba0a7882f25b9018bdfc961f"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Sodium Extra",
+      "modrinthId": "PtjYWJkn",
+      "versionTypeRegex": "release",
+      "filenameRegex": ".*",
+      "primaryFileOnly": true,
+      "version": "mc1.18.2-0.4.4",
+      "files": [
+        {
+          "filename": "sodium-extra-0.4.4+mc1.18.2-build.39.jar",
+          "file": {
+            "url": "https://cdn.modrinth.com/data/PtjYWJkn/versions/mc1.18.2-0.4.4/sodium-extra-0.4.4%2Bmc1.18.2-build.39.jar",
+            "sha512": "3c920618b362e98101f5d48be77205673b3dc6d9d9524e6e7d28b067bfca71a2466e7a5acc6af61f2dc8f682acbad7d0ff52bba750215a12365826e77d3f7b2b"
+          }
+        }
+      ]
+    },
+    {
       "name": "Lithium",
       "modrinthId": "gvQqBUqZ",
       "versionTypeRegex": "release",
@@ -560,6 +594,22 @@
       ]
     },
     {
+      "name": "Patchouli",
+      "modrinthId": "nU0bVIaL",
+      "versionTypeRegex": "release",
+      "filenameRegex": ".*",
+      "version": "1.18.2-66-fabric",
+      "files": [
+        {
+          "filename": "Patchouli-1.18.2-66-FABRIC.jar",
+          "file": {
+            "url": "https://cdn.modrinth.com/data/nU0bVIaL/versions/1.18.2-66-fabric/Patchouli-1.18.2-66-FABRIC.jar",
+            "sha512": "197a38b6b85ab2b2581a689ba85c056161020fddf72e829749afe39d4397992bb815f4a4383fa4d431814a40e3f07642785be9e9990f8bb632be9cdc93484d22"
+          }
+        }
+      ]
+    },
+    {
       "name": "Roughly Enough Items",
       "curseForgeId": "310111",
       "versionTypeRegex": "release",
@@ -645,6 +695,36 @@
           "file": {
             "url": "https://edge.forgecdn.net/files/3697/298/worldedit-mod-7.2.10.jar",
             "sha1": "40fc7f7a734ccbd53365bc91c1a17fafcec1965d"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Clumps",
+      "curseForgeId": "256717",
+      "versionTypeRegex": "release",
+      "version": "Clumps-fabric-1.18.2-8.0.0+8.jar",
+      "files": [
+        {
+          "filename": "Clumps-fabric-1.18.2-8.0.0+8.jar",
+          "file": {
+            "url": "https://edge.forgecdn.net/files/3757/580/Clumps-fabric-1.18.2-8.0.0%2B8.jar",
+            "sha1": "0ae22ad30554828e3f76ddb172ddc275412d9785"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Croptopia",
+      "curseForgeId": "415438",
+      "versionTypeRegex": "release",
+      "version": "Croptopia-1.18.2-FABRIC-2.0.1.jar",
+      "files": [
+        {
+          "filename": "Croptopia-1.18.2-FABRIC-2.0.1.jar",
+          "file": {
+            "url": "https://edge.forgecdn.net/files/3779/983/Croptopia-1.18.2-FABRIC-2.0.1.jar",
+            "sha1": "2aa5f12a97f99f32a3c3b8a13f547491655f7662"
           }
         }
       ]

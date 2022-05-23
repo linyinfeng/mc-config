@@ -137,6 +137,9 @@ def update_mod_modrinth(args, modrinth, game_version, mod_cfg):
     def file_filter(file):
         if not filename_regex.match(file["filename"]):
             return False
+        if "primaryFileOnly" in mod_cfg and mod_cfg["primaryFileOnly"]:
+            if not file["primary"]:
+                return False
         return True
 
     filtered_file = filter(file_filter, latest_version["files"])
