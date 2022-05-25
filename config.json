@@ -578,22 +578,6 @@
       ]
     },
     {
-      "name": "BlueMap",
-      "modrinthId": "swbUV1cr",
-      "versionTypeRegex": "release",
-      "filenameRegex": ".*",
-      "version": "1.7.2-fabric-1.18",
-      "files": [
-        {
-          "filename": "BlueMap-1.7.2-fabric-1.18.jar",
-          "file": {
-            "url": "https://cdn.modrinth.com/data/swbUV1cr/versions/1.7.2-fabric-1.18/BlueMap-1.7.2-fabric-1.18.jar",
-            "sha512": "0bcfa19a14f706aa63c9934f52d72fa3a489a59da67f83d407ed5ba4c9da4ab36e9ec23399080bdf6cb2d8cf95d0dd6304d1950799043f3cc66c664e93992e91"
-          }
-        }
-      ]
-    },
-    {
       "name": "Patchouli",
       "modrinthId": "nU0bVIaL",
       "versionTypeRegex": "release",
@@ -725,6 +709,21 @@
           "file": {
             "url": "https://edge.forgecdn.net/files/3779/983/Croptopia-1.18.2-FABRIC-2.0.1.jar",
             "sha1": "2aa5f12a97f99f32a3c3b8a13f547491655f7662"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Dynmap",
+      "curseForgeId": "59433",
+      "versionTypeRegex": "beta",
+      "version": "v3.4-beta-3 for Fabric v1.18.2",
+      "files": [
+        {
+          "filename": "Dynmap-3.4-beta-3-fabric-1.18.2.jar",
+          "file": {
+            "url": "https://edge.forgecdn.net/files/3724/84/Dynmap-3.4-beta-3-fabric-1.18.2.jar",
+            "sha1": "63faa57c3b58544d218953a17518e123042cc22c"
           }
         }
       ]
