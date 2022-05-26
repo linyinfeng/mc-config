@@ -1,19 +1,8 @@
-{ writeShellScriptBin, lib, serverConfig, minecraft-server, mods
-, fabric-libraries, jre }:
+{ lib, minecraft-nix-pkgs, mods, serverConfig }:
 
-assert fabric-libraries != [ ];
-
-writeShellScriptBin "server" ''
-  set -e
-
-  ${jre}/bin/java \
-    --class-path='${minecraft-server}:${
-      lib.concatStringsSep ":" fabric-libraries
-    }' \
-    ${
-      lib.optionalString (mods != [ ])
-      "-Dfabric.addMods='${lib.concatStringsSep ":" mods}'"
-    } \
-    ${serverConfig.server.fabricLoader.mainClass} \
-    "$@"
-''
+let
+  gameVersion =
+    lib.replaceStrings [ "." " " ] [ "_" "_" ] serverConfig.server.game.version;
+in minecraft-nix-pkgs."v${gameVersion}".fabric.server.withConfig [{
+  inherit mods;
+}]

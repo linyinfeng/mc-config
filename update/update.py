@@ -60,33 +60,6 @@ def update_server(args, server_cfg):
         game_versions = get_fabric_meta("versions/game")
         server_cfg["game"]["version"] = fabric_first_stable(game_versions)["version"]
     assert server_cfg["game"]["version"]
-    game_version = server_cfg["game"]["version"]
-    game_version_manifest = get_url(
-        "https://launchermeta.mojang.com/mc/game/version_manifest.json"
-    ).json()
-    game_version_manifest_match = [
-        *filter(lambda v: v["id"] == game_version, game_version_manifest["versions"])
-    ]
-    assert len(game_version_manifest_match) == 1
-    server_file_info = get_url(game_version_manifest_match[0]["url"]).json()[
-        "downloads"
-    ]["server"]
-    server_cfg["game"]["server"] = {
-        "url": server_file_info["url"],
-        "sha1": server_file_info["sha1"],
-    }
-
-    logging.info(f"updating fabric...")
-    ensure(server_cfg, "fabricLoader", dict())
-    loader_versions = get_fabric_meta("versions/loader")
-    loader_version = fabric_first_stable(loader_versions)["version"]
-    server_cfg["fabricLoader"]["version"] = loader_version
-    server_info = get_fabric_meta(
-        f"versions/loader/{game_version}/{loader_version}/server/json"
-    )
-    libraries = server_info["libraries"]
-    server_cfg["fabricLoader"]["libraries"] = [*map(get_library_hash, libraries)]
-    server_cfg["fabricLoader"]["mainClass"] = server_info["mainClass"]
 
 
 def update_mods(args, game_version, mods_cfg):
