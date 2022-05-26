@@ -97,13 +97,13 @@
       "modrinthId": "P7dR8mSH",
       "versionTypeRegex": "release",
       "filenameRegex": ".*",
-      "version": "0.53.0+1.18.2",
+      "version": "0.53.4+1.18.2",
       "files": [
         {
-          "filename": "fabric-api-0.53.0+1.18.2.jar",
+          "filename": "fabric-api-0.53.4+1.18.2.jar",
           "file": {
-            "url": "https://cdn.modrinth.com/data/P7dR8mSH/versions/0.53.0+1.18.2/fabric-api-0.53.0%2B1.18.2.jar",
-            "sha512": "9496c5ed97d2fb6b70e14004186702b5e678209090182c1ebe1a0f452204bfb7a8306ddbf141988701901bfa3cfa4998ebeb50d8502e7337487505d282f80be0"
+            "url": "https://cdn.modrinth.com/data/P7dR8mSH/versions/0.53.4+1.18.2/fabric-api-0.53.4%2B1.18.2.jar",
+            "sha512": "5ff453f69e0901245ea312f4b85a6c93570cece52a855ab134b53a6b7ebaebda58cf9333aa041fe903421eb6f69cbc113eb82be6651d05730547d14a26f2001b"
           }
         }
       ]
@@ -163,13 +163,13 @@
       "modrinthId": "gvQqBUqZ",
       "versionTypeRegex": "release",
       "filenameRegex": ".*",
-      "version": "mc1.18.2-0.7.9",
+      "version": "mc1.18.2-0.7.10",
       "files": [
         {
-          "filename": "lithium-fabric-mc1.18.2-0.7.9.jar",
+          "filename": "lithium-fabric-mc1.18.2-0.7.10.jar",
           "file": {
-            "url": "https://cdn.modrinth.com/data/gvQqBUqZ/versions/mc1.18.2-0.7.9/lithium-fabric-mc1.18.2-0.7.9.jar",
-            "sha512": "6c2128734a7e49301e49f394b62c4995aaed3cdd88fd20f7dd265db3dbafb6c5bb193e9705d5533585ee397ed713aaedfb843b05be2c4c7dd90a86321c2e8cfc"
+            "url": "https://cdn.modrinth.com/data/gvQqBUqZ/versions/mc1.18.2-0.7.10/lithium-fabric-mc1.18.2-0.7.10.jar",
+            "sha512": "05f0e51191c9051224c791d63ad4b7915e6f3c442e5d38225e7b05ea4261ee459edb3d8ce99411e1a5a854547549845f21cc8ee2f0079281fec999c1d319fb07"
           }
         }
       ]
@@ -502,13 +502,13 @@
       "modrinthId": "Xbc0uyRg",
       "versionTypeRegex": "beta",
       "filenameRegex": ".*",
-      "version": "mc1.18.2_v0.4.1+576",
+      "version": "mc1.18.2_v0.4.1+586",
       "files": [
         {
-          "filename": "create-mc1.18.2_v0.4.1+576.jar",
+          "filename": "create-mc1.18.2_v0.4.1+586.jar",
           "file": {
-            "url": "https://cdn.modrinth.com/data/Xbc0uyRg/versions/mc1.18.2_v0.4.1+576/create-mc1.18.2_v0.4.1%2B576.jar",
-            "sha512": "8488b0789b96ea6922a5a31e4231fb4dc92064a1ae958a26bb878a963cfeee2093a339c217b5c3c42ea7afc4360dbf1237f62ca7b48182896f0889a11e02e66b"
+            "url": "https://cdn.modrinth.com/data/Xbc0uyRg/versions/mc1.18.2_v0.4.1+586/create-mc1.18.2_v0.4.1%2B586.jar",
+            "sha512": "701c22b24d51992e3bda7e315db69335245234832a494560feb79e4097df1d0baeed5ad352a9a046c8a52c9a9c2393e7b00dfe0ccec1d57779a9afbfe8f32d6f"
           }
         }
       ]
@@ -597,13 +597,13 @@
       "name": "Roughly Enough Items",
       "curseForgeId": "310111",
       "versionTypeRegex": "release",
-      "version": "[Fabric 1.18.2] v8.2.461",
+      "version": "[Fabric 1.18.2] v8.2.463",
       "files": [
         {
-          "filename": "RoughlyEnoughItems-8.2.461.jar",
+          "filename": "RoughlyEnoughItems-8.2.463.jar",
           "file": {
-            "url": "https://edge.forgecdn.net/files/3799/27/RoughlyEnoughItems-8.2.461.jar",
-            "sha1": "712a733709aed0d38c476bdd72555bcb123aa6d5"
+            "url": "https://edge.forgecdn.net/files/3802/573/RoughlyEnoughItems-8.2.463.jar",
+            "sha1": "2f703da6dc49a130e3198a525d855fd3923c63fc"
           }
         }
       ]
@@ -612,13 +612,13 @@
       "name": "Architectury API",
       "curseForgeId": "419699",
       "versionTypeRegex": "release",
-      "version": "[Fabric 1.18.2] v4.4.60",
+      "version": "[Fabric 1.18.2] v4.4.61",
       "files": [
         {
-          "filename": "architectury-4.4.60.jar",
+          "filename": "architectury-4.4.61.jar",
           "file": {
-            "url": "https://edge.forgecdn.net/files/3786/590/architectury-4.4.60.jar",
-            "sha1": "6a1e4082cf06ef92ce5fdbac2235124c50a4951c"
+            "url": "https://edge.forgecdn.net/files/3801/524/architectury-4.4.61.jar",
+            "sha1": "3d7444ed466f20a127f41523f98a4e8815cbb70c"
           }
         }
       ]
@@ -627,13 +627,13 @@
       "name": "Xaero's Minimap",
       "curseForgeId": "263420",
       "versionTypeRegex": "beta",
-      "version": "v22.7.0 for Fabric 1.18.2",
+      "version": "v22.8.2 for Fabric 1.18.2",
       "files": [
         {
-          "filename": "Xaeros_Minimap_22.7.0_Fabric_1.18.2.jar",
+          "filename": "Xaeros_Minimap_22.8.2_Fabric_1.18.2.jar",
           "file": {
-            "url": "https://edge.forgecdn.net/files/3778/435/Xaeros_Minimap_22.7.0_Fabric_1.18.2.jar",
-            "sha1": "8da460edf35c55bb77bc9f240c1d431a8de52cd9"
+            "url": "https://edge.forgecdn.net/files/3798/916/Xaeros_Minimap_22.8.2_Fabric_1.18.2.jar",
+            "sha1": "505a6552b16ea674c6867808f78dee89d23302c4"
           }
         }
       ]
@@ -642,13 +642,13 @@
       "name": "Xaero's World Map",
       "curseForgeId": "317780",
       "versionTypeRegex": "beta",
-      "version": "v1.21.2 for Fabric 1.18.2",
+      "version": "v1.22.0 for Fabric 1.18.2",
       "files": [
         {
-          "filename": "XaerosWorldMap_1.21.2_Fabric_1.18.2.jar",
+          "filename": "XaerosWorldMap_1.22.0_Fabric_1.18.2.jar",
           "file": {
-            "url": "https://edge.forgecdn.net/files/3782/705/XaerosWorldMap_1.21.2_Fabric_1.18.2.jar",
-            "sha1": "3965c8017baf63de53e7ab4cc34d22c5d3b7d0b5"
+            "url": "https://edge.forgecdn.net/files/3796/748/XaerosWorldMap_1.22.0_Fabric_1.18.2.jar",
+            "sha1": "d6f7ff3830a3169a3e0d33045fed060b219af4b2"
           }
         }
       ]
