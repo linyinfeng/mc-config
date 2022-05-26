@@ -727,6 +727,21 @@
           }
         }
       ]
+    },
+    {
+      "name": "megane",
+      "curseForgeId": "408118",
+      "versionTypeRegex": "release",
+      "version": "[1.18.2] v7.5.1",
+      "files": [
+        {
+          "filename": "megane-7.5.1.jar",
+          "file": {
+            "url": "https://edge.forgecdn.net/files/3769/381/megane-7.5.1.jar",
+            "sha1": "16e40d91b527a14dafb92d789d17c5afc00b2fd4"
+          }
+        }
+      ]
     }
   ]
 }
