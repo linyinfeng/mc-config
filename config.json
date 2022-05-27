@@ -413,7 +413,7 @@
     {
       "name": "Create Fabric",
       "modrinthId": "Xbc0uyRg",
-      "versionTypeRegex": "beta",
+      "versionTypeRegex": "release|beta",
       "filenameRegex": ".*",
       "version": "mc1.18.2_v0.4.1+586",
       "files": [
@@ -525,13 +525,13 @@
       "name": "Architectury API",
       "curseForgeId": "419699",
       "versionTypeRegex": "release",
-      "version": "[Fabric 1.18.2] v4.4.61",
+      "version": "[Fabric 1.18.2] v4.4.64",
       "files": [
         {
-          "filename": "architectury-4.4.61.jar",
+          "filename": "architectury-4.4.64.jar",
           "file": {
-            "url": "https://edge.forgecdn.net/files/3801/524/architectury-4.4.61.jar",
-            "sha1": "3d7444ed466f20a127f41523f98a4e8815cbb70c"
+            "url": "https://edge.forgecdn.net/files/3805/847/architectury-4.4.64.jar",
+            "sha1": "b18f2133120c96ba40f4aec8ae6ac4a3e35f1f08"
           }
         }
       ]
@@ -539,7 +539,7 @@
     {
       "name": "Xaero's Minimap",
       "curseForgeId": "263420",
-      "versionTypeRegex": "beta",
+      "versionTypeRegex": "release|beta",
       "version": "v22.8.2 for Fabric 1.18.2",
       "files": [
         {
@@ -554,7 +554,7 @@
     {
       "name": "Xaero's World Map",
       "curseForgeId": "317780",
-      "versionTypeRegex": "beta",
+      "versionTypeRegex": "release|beta",
       "version": "v1.22.0 for Fabric 1.18.2",
       "files": [
         {
@@ -569,7 +569,7 @@
     {
       "name": "Inventory HUD+",
       "curseForgeId": "357540",
-      "versionTypeRegex": "beta",
+      "versionTypeRegex": "release|beta",
       "version": "[Fabric.1.18.x] InventoryHUD+ (v3.4.2)",
       "files": [
         {
@@ -615,13 +615,13 @@
       "name": "Croptopia",
       "curseForgeId": "415438",
       "versionTypeRegex": "release",
-      "version": "Croptopia-1.18.2-FABRIC-2.0.1.jar",
+      "version": "Croptopia-1.18.2-FABRIC-2.0.3.jar",
       "files": [
         {
-          "filename": "Croptopia-1.18.2-FABRIC-2.0.1.jar",
+          "filename": "Croptopia-1.18.2-FABRIC-2.0.3.jar",
           "file": {
-            "url": "https://edge.forgecdn.net/files/3779/983/Croptopia-1.18.2-FABRIC-2.0.1.jar",
-            "sha1": "2aa5f12a97f99f32a3c3b8a13f547491655f7662"
+            "url": "https://edge.forgecdn.net/files/3805/874/Croptopia-1.18.2-FABRIC-2.0.3.jar",
+            "sha1": "fd26292fc51bc1f726eeecbaf91630019a8cad2c"
           }
         }
       ]
@@ -629,7 +629,7 @@
     {
       "name": "Dynmap",
       "curseForgeId": "59433",
-      "versionTypeRegex": "beta",
+      "versionTypeRegex": "release|beta",
       "version": "v3.4-beta-3 for Fabric v1.18.2",
       "files": [
         {
@@ -652,6 +652,21 @@
           "file": {
             "url": "https://edge.forgecdn.net/files/3769/381/megane-7.5.1.jar",
             "sha1": "16e40d91b527a14dafb92d789d17c5afc00b2fd4"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Create Crafts & Additions",
+      "curseForgeId": "439890",
+      "versionTypeRegex": "release|beta",
+      "version": "createaddition-fabric-1.18.2-20220525a",
+      "files": [
+        {
+          "filename": "createaddition-1.18.2-20220525a.jar",
+          "file": {
+            "url": "https://edge.forgecdn.net/files/3804/888/createaddition-1.18.2-20220525a.jar",
+            "sha1": "5246471ab3cc7d8a60581b0cb5f54a28d1a133af"
           }
         }
       ]
