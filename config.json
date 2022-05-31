@@ -204,13 +204,13 @@
       "modrinthId": "O7RBXm3n",
       "versionTypeRegex": "release",
       "filenameRegex": ".*",
-      "version": "fabric-1.18.2-1.4.0",
+      "version": "fabric-1.18.2-1.5.0",
       "files": [
         {
-          "filename": "InventoryProfilesNext-fabric-1.18.2-1.4.0.jar",
+          "filename": "InventoryProfilesNext-fabric-1.18.2-1.5.0.jar",
           "file": {
-            "url": "https://cdn.modrinth.com/data/O7RBXm3n/versions/fabric-1.18.2-1.4.0/InventoryProfilesNext-fabric-1.18.2-1.4.0.jar",
-            "sha512": "f8115da32e599909e26fe245101f18eee40f132646cc5ae2b242146cbe95de92c9218da1c5edba7937e00fcce1a95e7b1f155af6b5ffa8ece030be7151cf0962"
+            "url": "https://cdn.modrinth.com/data/O7RBXm3n/versions/fabric-1.18.2-1.5.0/InventoryProfilesNext-fabric-1.18.2-1.5.0.jar",
+            "sha512": "33ac225f1daa3487ca6682217b100acbe49e2737075310179899cc5614019d330cea6bc4a04bd52623c0a19f56e1d174dac8bf2662199932e92bdc6ac266677a"
           }
         }
       ]
@@ -236,13 +236,13 @@
       "modrinthId": "eldBwa5V",
       "versionTypeRegex": "release",
       "filenameRegex": ".*",
-      "version": "1.100.5",
+      "version": "1.100.6",
       "files": [
         {
-          "filename": "cc-restitched-1.100.5.jar",
+          "filename": "cc-restitched-1.100.6.jar",
           "file": {
-            "url": "https://cdn.modrinth.com/data/eldBwa5V/versions/1.100.5/cc-restitched-1.100.5.jar",
-            "sha512": "3fab7e566568e7e1e00b07b39236b68743c8006c0dee60ff95a094092d5ffa9b5ebf4b6224f45aa229498710f19899a6355dfabea546c90da32f744b7e4977d8"
+            "url": "https://cdn.modrinth.com/data/eldBwa5V/versions/1.100.6/cc-restitched-1.100.6.jar",
+            "sha512": "6ee2197aaca703760b3c2b89ee8a457018a882cda3f7903218e20999350d455851c2b4b5cc1ac2879af0982fc83b8f0c2ec921e75820330589f7a72364dfc68f"
           }
         }
       ]
@@ -495,13 +495,13 @@
       "modrinthId": "nU0bVIaL",
       "versionTypeRegex": "release",
       "filenameRegex": ".*",
-      "version": "1.18.2-66-fabric",
+      "version": "1.18.2-69-fabric",
       "files": [
         {
-          "filename": "Patchouli-1.18.2-66-FABRIC.jar",
+          "filename": "Patchouli-1.18.2-69-FABRIC.jar",
           "file": {
-            "url": "https://cdn.modrinth.com/data/nU0bVIaL/versions/1.18.2-66-fabric/Patchouli-1.18.2-66-FABRIC.jar",
-            "sha512": "197a38b6b85ab2b2581a689ba85c056161020fddf72e829749afe39d4397992bb815f4a4383fa4d431814a40e3f07642785be9e9990f8bb632be9cdc93484d22"
+            "url": "https://cdn.modrinth.com/data/nU0bVIaL/versions/1.18.2-69-fabric/Patchouli-1.18.2-69-FABRIC.jar",
+            "sha512": "94ee05be262ec628980f34733f4135d2ad03bec7392bb573ded978ddd8215ce1f7388bd7a8347585577947fe426bc02686f6af3643c1e8d4a79e9d922320cf90"
           }
         }
       ]
@@ -510,13 +510,13 @@
       "name": "Roughly Enough Items",
       "curseForgeId": "310111",
       "versionTypeRegex": "release",
-      "version": "[Fabric 1.18.2] v8.2.463",
+      "version": "[Fabric 1.18.2] v8.2.470",
       "files": [
         {
-          "filename": "RoughlyEnoughItems-8.2.463.jar",
+          "filename": "RoughlyEnoughItems-8.2.470.jar",
           "file": {
-            "url": "https://edge.forgecdn.net/files/3802/573/RoughlyEnoughItems-8.2.463.jar",
-            "sha1": "2f703da6dc49a130e3198a525d855fd3923c63fc"
+            "url": "https://edge.forgecdn.net/files/3807/859/RoughlyEnoughItems-8.2.470.jar",
+            "sha1": "6635f6351de0af0f4c12f1f5049ded9abd565b92"
           }
         }
       ]
@@ -525,13 +525,13 @@
       "name": "Architectury API",
       "curseForgeId": "419699",
       "versionTypeRegex": "release",
-      "version": "[Fabric 1.18.2] v4.4.64",
+      "version": "[Fabric 1.18.2] v4.4.68",
       "files": [
         {
-          "filename": "architectury-4.4.64.jar",
+          "filename": "architectury-4.4.68.jar",
           "file": {
-            "url": "https://edge.forgecdn.net/files/3805/847/architectury-4.4.64.jar",
-            "sha1": "b18f2133120c96ba40f4aec8ae6ac4a3e35f1f08"
+            "url": "https://edge.forgecdn.net/files/3807/923/architectury-4.4.68.jar",
+            "sha1": "25caa4222a307016cb45cf8b6d27c09b507e2196"
           }
         }
       ]
