@@ -31,7 +31,7 @@ jobs:
         nix build .#mods-combined --out-link result-mods
         mkdir mods
         cp result-mods/* mods/
-    - name: Update mods
+    - name: Upload mods
       uses: actions/upload-artifact@main
       with:
         name: mods
