@@ -10,13 +10,13 @@
       "modrinthId": "P7dR8mSH",
       "versionTypeRegex": "release",
       "filenameRegex": ".*",
-      "version": "0.53.4+1.18.2",
+      "version": "0.55.1+1.18.2",
       "files": [
         {
-          "filename": "fabric-api-0.53.4+1.18.2.jar",
+          "filename": "fabric-api-0.55.1+1.18.2.jar",
           "file": {
-            "url": "https://cdn.modrinth.com/data/P7dR8mSH/versions/0.53.4+1.18.2/fabric-api-0.53.4%2B1.18.2.jar",
-            "sha512": "5ff453f69e0901245ea312f4b85a6c93570cece52a855ab134b53a6b7ebaebda58cf9333aa041fe903421eb6f69cbc113eb82be6651d05730547d14a26f2001b"
+            "url": "https://cdn.modrinth.com/data/P7dR8mSH/versions/0.55.1+1.18.2/fabric-api-0.55.1%2B1.18.2.jar",
+            "sha512": "91cce75c6a3189ab45c6f47638dc14eee8b91c3d4c6f0e432cd1306ea3d70b49baf4fadbdf9cfa1fa272bd33d376ff6d15d9ce602749c40640f45f8eb4a05e1f"
           }
         }
       ]
@@ -252,13 +252,13 @@
       "modrinthId": "XxWD5pD3",
       "versionTypeRegex": "release",
       "filenameRegex": ".*",
-      "version": "fabric-11.0.0",
+      "version": "fabric-11.1.0",
       "files": [
         {
-          "filename": "appliedenergistics2-11.0.0.jar",
+          "filename": "appliedenergistics2-11.1.0.jar",
           "file": {
-            "url": "https://cdn.modrinth.com/data/XxWD5pD3/versions/fabric-11.0.0/appliedenergistics2-11.0.0.jar",
-            "sha512": "7e608c5417fff79dac3d35b976da70c73a9c5bce8d704fe0f12cf115267cbf188e632a4bcbc34f395ec7538af03efff9c0e80ede8de4d7d0ba07a5d87fa68f21"
+            "url": "https://cdn.modrinth.com/data/XxWD5pD3/versions/fabric-11.1.0/appliedenergistics2-11.1.0.jar",
+            "sha512": "5e9e39a95a7426e56af9fec97524cfa9bfff672789838d301361aa4aeb5ccadac93fd816b53a08ccf529978f1876e14704e6e125288f5161683569777cde10f7"
           }
         }
       ]
@@ -268,13 +268,13 @@
       "modrinthId": "Gov5Dboq",
       "versionTypeRegex": "release",
       "filenameRegex": ".*",
-      "version": "1.1.1",
+      "version": "1.2.0",
       "files": [
         {
-          "filename": "Modern-Industrialization-1.1.1.jar",
+          "filename": "Modern-Industrialization-1.2.0.jar",
           "file": {
-            "url": "https://cdn.modrinth.com/data/Gov5Dboq/versions/1.1.1/Modern-Industrialization-1.1.1.jar",
-            "sha512": "e5f23c7d9475b668bb8eb96152185176f06dee7bfea798545b87c6ad84c8ce19452e31f7ad35c0061feaf3a118aef465fcea317421ad30014032f60367218ef3"
+            "url": "https://cdn.modrinth.com/data/Gov5Dboq/versions/1.2.0/Modern-Industrialization-1.2.0.jar",
+            "sha512": "2c177022ac42d828a86da6b839d007c7e7a5862bb42dd4581ab3924ecca1b1838c568161e50256252d087db0dc8051424ced72e8dfb90dd5e4e06b65051d8e36"
           }
         }
       ]
@@ -415,13 +415,13 @@
       "modrinthId": "Xbc0uyRg",
       "versionTypeRegex": "release|beta",
       "filenameRegex": ".*",
-      "version": "mc1.18.2_v0.4.1+586",
+      "version": "mc1.18.2_v0.4.1+600",
       "files": [
         {
-          "filename": "create-mc1.18.2_v0.4.1+586.jar",
+          "filename": "create-mc1.18.2_v0.4.1+600.jar",
           "file": {
-            "url": "https://cdn.modrinth.com/data/Xbc0uyRg/versions/mc1.18.2_v0.4.1+586/create-mc1.18.2_v0.4.1%2B586.jar",
-            "sha512": "701c22b24d51992e3bda7e315db69335245234832a494560feb79e4097df1d0baeed5ad352a9a046c8a52c9a9c2393e7b00dfe0ccec1d57779a9afbfe8f32d6f"
+            "url": "https://cdn.modrinth.com/data/Xbc0uyRg/versions/mc1.18.2_v0.4.1+600/create-mc1.18.2_v0.4.1%2B600.jar",
+            "sha512": "d2af2261c56000010fa1176fab32f41fd2ced1de06f9497de415f086f6928586b99b3f210feda629208b05f2a062b8c6e7cec3a573093011c7047a96553757bd"
           }
         }
       ]
@@ -526,13 +526,13 @@
       "name": "Roughly Enough Items",
       "curseForgeId": "310111",
       "versionTypeRegex": "release",
-      "version": "[Fabric 1.18.2] v8.2.470",
+      "version": "[Fabric 1.18.2] v8.2.471",
       "files": [
         {
-          "filename": "RoughlyEnoughItems-8.2.470.jar",
+          "filename": "RoughlyEnoughItems-8.2.471.jar",
           "file": {
-            "url": "https://edge.forgecdn.net/files/3807/859/RoughlyEnoughItems-8.2.470.jar",
-            "sha1": "6635f6351de0af0f4c12f1f5049ded9abd565b92"
+            "url": "https://edge.forgecdn.net/files/3816/876/RoughlyEnoughItems-8.2.471.jar",
+            "sha1": "eb02400c1197557fc29bbd54dc212821a9e71ffe"
           }
         }
       ]
@@ -556,13 +556,13 @@
       "name": "Xaero's Minimap",
       "curseForgeId": "263420",
       "versionTypeRegex": "release|beta",
-      "version": "v22.8.2 for Fabric 1.18.2",
+      "version": "v22.9.0 for Fabric 1.18.2",
       "files": [
         {
-          "filename": "Xaeros_Minimap_22.8.2_Fabric_1.18.2.jar",
+          "filename": "Xaeros_Minimap_22.9.0_Fabric_1.18.2.jar",
           "file": {
-            "url": "https://edge.forgecdn.net/files/3798/916/Xaeros_Minimap_22.8.2_Fabric_1.18.2.jar",
-            "sha1": "505a6552b16ea674c6867808f78dee89d23302c4"
+            "url": "https://edge.forgecdn.net/files/3811/525/Xaeros_Minimap_22.9.0_Fabric_1.18.2.jar",
+            "sha1": "d9f0b8c3aa48f388e05b9b5ff17cb4f0de90f367"
           }
         }
       ]
@@ -571,13 +571,13 @@
       "name": "Xaero's World Map",
       "curseForgeId": "317780",
       "versionTypeRegex": "release|beta",
-      "version": "v1.22.0 for Fabric 1.18.2",
+      "version": "v1.23.1 for Fabric 1.18.2",
       "files": [
         {
-          "filename": "XaerosWorldMap_1.22.0_Fabric_1.18.2.jar",
+          "filename": "XaerosWorldMap_1.23.1_Fabric_1.18.2.jar",
           "file": {
-            "url": "https://edge.forgecdn.net/files/3796/748/XaerosWorldMap_1.22.0_Fabric_1.18.2.jar",
-            "sha1": "d6f7ff3830a3169a3e0d33045fed060b219af4b2"
+            "url": "https://edge.forgecdn.net/files/3811/537/XaerosWorldMap_1.23.1_Fabric_1.18.2.jar",
+            "sha1": "b77d2544c6bb24e2284c81e33b7e56ee57a56379"
           }
         }
       ]
@@ -631,13 +631,13 @@
       "name": "Croptopia",
       "curseForgeId": "415438",
       "versionTypeRegex": "release",
-      "version": "Croptopia-1.18.2-FABRIC-2.0.3.jar",
+      "version": "Croptopia-1.18.2-FABRIC-2.0.4.jar",
       "files": [
         {
-          "filename": "Croptopia-1.18.2-FABRIC-2.0.3.jar",
+          "filename": "Croptopia-1.18.2-FABRIC-2.0.4.jar",
           "file": {
-            "url": "https://edge.forgecdn.net/files/3805/874/Croptopia-1.18.2-FABRIC-2.0.3.jar",
-            "sha1": "fd26292fc51bc1f726eeecbaf91630019a8cad2c"
+            "url": "https://edge.forgecdn.net/files/3816/93/Croptopia-1.18.2-FABRIC-2.0.4.jar",
+            "sha1": "1b9473c305cb5fa054079b69c8fc8f2b432747c2"
           }
         }
       ]
