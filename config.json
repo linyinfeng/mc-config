@@ -200,22 +200,6 @@
       ]
     },
     {
-      "name": "Inventory Profiles Next",
-      "modrinthId": "O7RBXm3n",
-      "versionTypeRegex": "release",
-      "filenameRegex": ".*",
-      "version": "fabric-1.18.2-1.5.0",
-      "files": [
-        {
-          "filename": "InventoryProfilesNext-fabric-1.18.2-1.5.0.jar",
-          "file": {
-            "url": "https://cdn.modrinth.com/data/O7RBXm3n/versions/fabric-1.18.2-1.5.0/InventoryProfilesNext-fabric-1.18.2-1.5.0.jar",
-            "sha512": "33ac225f1daa3487ca6682217b100acbe49e2737075310179899cc5614019d330cea6bc4a04bd52623c0a19f56e1d174dac8bf2662199932e92bdc6ac266677a"
-          }
-        }
-      ]
-    },
-    {
       "name": "AppleSkin",
       "modrinthId": "EsAfCjCV",
       "versionTypeRegex": "release",
