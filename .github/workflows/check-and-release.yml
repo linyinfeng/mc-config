@@ -58,7 +58,6 @@ jobs:
     - name: Release
       uses: softprops/action-gh-release@master
       with:
-        draft: true
         generate_release_notes: true
         files: |
           mods.zip
