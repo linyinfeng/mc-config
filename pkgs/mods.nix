@@ -1,4 +1,4 @@
-{ stdenv, fetchurl, lib, serverConfig ? lib.importJSON ./config.json }:
+{ stdenv, fetchurl, lib, launcherConfig }:
 
 let
   convertFile = f:
@@ -10,4 +10,5 @@ let
         cp $src $out
       '';
     };
-in lib.flatten (map (cfg: map convertFile cfg.files) serverConfig.mods)
+in
+lib.flatten (map (cfg: map convertFile cfg.files) launcherConfig.mods)
