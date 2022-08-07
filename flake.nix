@@ -10,7 +10,8 @@
     minecraft-json.inputs.nixpkgs.follows = "nixpkgs";
     minecraft-json.inputs.flake-utils.follows = "flake-utils-plus/flake-utils";
   };
-  outputs = inputs@{ self, nixpkgs, flake-utils-plus, minecraft-nix, minecraft-json }:
+  outputs =
+    inputs@{ self, nixpkgs, flake-utils-plus, minecraft-nix, minecraft-json }:
     let utils = flake-utils-plus.lib;
     in utils.mkFlake {
       inherit self inputs;
@@ -31,8 +32,7 @@
           contents = self.lib.mkLaunchers pkgs {
             launcherConfig = lib.importJSON ./config.json;
           };
-        in
-        {
+        in {
           inherit contents;
           packages = utils.flattenTree contents // {
             update = pkgs.callPackage ./update { };

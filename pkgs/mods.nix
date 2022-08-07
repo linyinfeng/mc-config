@@ -10,5 +10,4 @@ let
         cp $src $out
       '';
     };
-in
-lib.flatten (map (cfg: map convertFile cfg.files) launcherConfig.mods)
+in lib.flatten (map (cfg: map convertFile cfg.files) launcherConfig.mods)
