@@ -16,8 +16,6 @@
     in utils.mkFlake {
       inherit self inputs;
 
-      supportedSystems = [ "x86_64-linux" ];
-
       lib.mkLaunchers = pkgs: config:
         let system = pkgs.stdenv.hostPlatform.system;
         in pkgs.callPackage ./pkgs ({
@@ -28,18 +26,11 @@
         let
           pkgs = channels.nixpkgs;
           system = pkgs.stdenv.hostPlatform.system;
-          inherit (pkgs) lib;
-          contents = self.lib.mkLaunchers pkgs {
-            launcherConfig = lib.importJSON ./config.json;
-          };
         in {
-          inherit contents;
-          packages = utils.flattenTree contents // {
-            update = pkgs.callPackage ./update { };
-          };
+          packages.update = pkgs.callPackage ./update { };
           checks = self.packages.${system};
           devShells.default = pkgs.mkShell {
-            packages = with pkgs; [ fup-repl sops poetry black nixfmt fd ];
+            packages = with pkgs; [ fup-repl black nixfmt fd ];
           };
         };
     };

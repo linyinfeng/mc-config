@@ -20,46 +20,35 @@ def cli():
     logging.basicConfig(level=logging.INFO)
 
     parser = argparse.ArgumentParser(description="Update minecraft server.")
-    parser.add_argument("--game-version", metavar="VER", type=str)
-    parser.add_argument("--update-game", action=argparse.BooleanOptionalAction)
+    parser.add_argument(
+        "--config-input", metavar="FILE", type=str, default="config.in.json"
+    )
+    parser.add_argument(
+        "--config-output", metavar="FILE", type=str, default="config.json"
+    )
     parser.add_argument("--dry-run", action=argparse.BooleanOptionalAction)
     args = parser.parse_args()
     main(args)
 
 
 def main(args):
-    with open("./config.json") as f:
-        logging.info("loading config.json...")
+    with open(args.config_input) as f:
+        logging.info(f"loading '{args.config_input}'...")
         config = json.load(f)
-    if not args.dry_run:
-        logging.info("copying config.json to config.json.bak...")
-        shutil.copy("./config.json", "./config.json.bak")
+    if not args.dry_run and os.path.isfile(args.config_output):
+        logging.info(f"copying '{args.config_output}' to '{args.config_output}.bak'...")
+        shutil.copy(args.config_output, f"{args.config_output}.bak")
     update(args, config)
     if not args.dry_run:
-        with open("./config.json", "w") as f:
-            logging.info("saving config.json...")
+        with open(args.config_output, "w") as f:
+            logging.info(f"saving config to '{args.config_output}'...")
             json.dump(config, f, indent=2)
             logging.info("done")
 
 
 def update(args, config):
-    ensure(config, "server", dict())
-    update_server(args, config["server"])
-
     game_version = config["server"]["game"]["version"]
-    ensure(config, "mods", [])
     update_mods(args, game_version, config["mods"])
-
-
-def update_server(args, server_cfg):
-    logging.info(f"updating minecraft...")
-    ensure(server_cfg, "game", dict())
-    if args.game_version is not None:
-        server_cfg["game"]["version"] = args.game_version
-    if args.update_game:
-        game_versions = get_fabric_meta("versions/game")
-        server_cfg["game"]["version"] = fabric_first_stable(game_versions)["version"]
-    assert server_cfg["game"]["version"]
 
 
 def update_mods(args, game_version, mods_cfg):
@@ -70,14 +59,13 @@ def update_mods(args, game_version, mods_cfg):
         update_mod(args, modrinth, curse, game_version, mod_cfg)
 
 
-def update_mod(args, modrinth, curse, game_version, mod_cfg):
+def update_mod(args, modrinth, curse, global_game_version, mod_cfg):
     is_modrinth = "modrinthId" in mod_cfg
     is_curse = "curseForgeId" in mod_cfg
     assert is_modrinth or is_curse
     assert not (is_modrinth and is_curse)
 
-    if "fakeGameVersion" in mod_cfg:
-        game_version = mod_cfg["fakeGameVersion"]
+    game_version = lookup(mod_cfg, "fakeGameVersion", global_game_version)
 
     if is_modrinth:
         update_mod_modrinth(args, modrinth, game_version, mod_cfg)
@@ -91,10 +79,7 @@ def update_mod_modrinth(args, modrinth, game_version, mod_cfg):
         f'project/{modrinth_id}/version?loaders=["fabric"]&game_versions=["{game_version}"]'
     )
 
-    ensure(mod_cfg, "versionTypeRegex", "release")
-    ensure(mod_cfg, "filenameRegex", ".*")
-
-    version_type_regex = re.compile(mod_cfg["versionTypeRegex"])
+    version_type_regex = re.compile(lookup(mod_cfg, "versionTypeRegex", "release"))
 
     def version_filter(version):
         if not version_type_regex.match(version["version_type"]):
@@ -105,12 +90,12 @@ def update_mod_modrinth(args, modrinth, game_version, mod_cfg):
     latest_version = modrinth_latest_version(filtered_versions)
     mod_cfg["version"] = latest_version["version_number"]
 
-    filename_regex = re.compile(mod_cfg["filenameRegex"])
+    filename_regex = re.compile(lookup(mod_cfg, "filenameRegex", ".*"))
 
     def file_filter(file):
         if not filename_regex.match(file["filename"]):
             return False
-        if "primaryFileOnly" in mod_cfg and mod_cfg["primaryFileOnly"]:
+        if lookup(mod_cfg, "primaryFileOnly", False):
             if not file["primary"]:
                 return False
         return True
@@ -137,9 +122,7 @@ def update_mod_curse(args, curse, game_version, mod_cfg):
         f"mods/{curse_id}/files?gameVersion={game_version}&modLoaderType={FABRIC_TYPE}"
     )["data"]
 
-    ensure(mod_cfg, "versionTypeRegex", "release")
-
-    version_type_regex = re.compile(mod_cfg["versionTypeRegex"])
+    version_type_regex = re.compile(lookup(mod_cfg, "versionTypeRegex", "release"))
 
     def version_filter(version):
         if not version["isAvailable"]:
@@ -178,9 +161,11 @@ def update_mod_curse(args, curse, game_version, mod_cfg):
     ]
 
 
-def ensure(d, key, default):
+def lookup(d, key, default):
     if key not in d:
-        d[key] = default
+        return default
+    else:
+        return d[key]
 
 
 def get_url(url, **kw_args):
