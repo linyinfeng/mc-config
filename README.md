@@ -33,6 +33,16 @@ contents = mc-config.lib.mkLaunchers pkgs {
 * `contents.mods-combined`: a nix derivation of a folder containing all mods
 * `contents.mods-zip`: a nix derivation of a zip file containing all mods
 
+## About CurseForge
+
+You need a CurseForge API key from <https://console.curseforge.com> to use CurseForge mods.
+
+```shell
+$ export CURSEFORGE_API_KEY="YOUR_API_KEY"
+$ nix run "github:linyinfeng/mc-config#update"
+...
+```
+
 ## Flake template
 
 [linyinfeng/mc-config-template](https://github.com/linyinfeng/mc-config-template) is a template repository with some convenient GitHub workflows for automated updating and releasing.
