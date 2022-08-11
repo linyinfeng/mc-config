@@ -27,11 +27,11 @@ contents = mc-config.lib.mkLaunchers pkgs {
 };
 ```
 
-* `contents.client-launcher`: the client launcher
-* `contents.server-laucnher`: the server launcher
+* `contents.client-launcher`: a nix derivation of the client launcher
+* `contents.server-laucnher`: a nix derivation of the server launcher
 * `contents.mods`: a nix list containing all derivations of mods
-* `contents.mods-combined`: a folder containing all mods
-* `contents.mods-zip`: a zip file containing all mods
+* `contents.mods-combined`: a nix derivation of a folder containing all mods
+* `contents.mods-zip`: a nix derivation of a zip file containing all mods
 
 ## Flake template
 
