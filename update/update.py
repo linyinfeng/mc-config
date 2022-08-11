@@ -174,7 +174,7 @@ def get_url(url, **kw_args):
     if response.status_code == 200:
         return response
     else:
-        raise RuntimeError(f"failed to get f'{url}'")
+        raise RuntimeError(f"failed to get '{url}': {response.status_code}")
 
 
 def get_fabric_meta(resource):
