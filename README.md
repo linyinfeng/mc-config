@@ -4,9 +4,9 @@ A simple Minecraft mod manager in nix (*fabric only*), based on [minecraft.nix](
 
 ## Usage
 
-Create a `config.in.json` containing the game and mod specifications, for example <https://github.com/linyinfeng/mc-config-template/blob/main/config.in.json>.
+Create a `config.in.json` containing the game and mod specifications, for example [config.in.json](https://github.com/linyinfeng/mc-config-template/blob/main/config.in.json).
 
-Run `github:linyinfeng/mc-config#update` to create `config.json`, for example <https://github.com/linyinfeng/mc-config-template/blob/main/config.json>.
+Run `github:linyinfeng/mc-config#update` to create `config.json`, for example [config.json](https://github.com/linyinfeng/mc-config-template/blob/main/config.json).
 
 ```shell
 $ nix run "github:linyinfeng/mc-config#update" -- --help
