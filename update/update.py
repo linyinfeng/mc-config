@@ -38,6 +38,7 @@ def main(args):
     if not args.dry_run and os.path.isfile(args.config_output):
         logging.info(f"copying '{args.config_output}' to '{args.config_output}.bak'...")
         shutil.copy(args.config_output, f"{args.config_output}.bak")
+    preprocess(config)
     update(args, config)
     if not args.dry_run:
         with open(args.config_output, "w") as f:
@@ -45,6 +46,29 @@ def main(args):
             json.dump(config, f, indent=2)
             logging.info("done")
 
+def preprocess(config):
+    mods_cfg = config["mods"]
+    for k, v in enumerate(mods_cfg):
+        if isinstance(v, str):
+            (website, uri) = parse_mod_url(v)
+            mods_cfg[k] = {"name": f"{website.lower()}:{uri}", f"{website}Id": uri}
+
+def parse_mod_url(url: str):
+    '''
+    URL Examples:
+
+        https://www.curseforge.com/minecraft/mc-mods/jei
+        https://modrinth.com/mod/sodium
+    '''
+    url_patterns = {
+        "modrinth": 'https://modrinth.com/mod/',
+        "curseForge": 'https://www.curseforge.com/minecraft/mc-mods/',
+    }
+    for website, pat in url_patterns.items():
+        if url.startswith(pat):
+            uri = url[len(pat):]
+            return (website, uri)
+    raise RuntimeError("invalid Mod URL: " + url)
 
 def update(args, config):
     game_version = config["server"]["game"]["version"]
