@@ -19,7 +19,7 @@ CURSE_CDN = "https://edge.forgecdn.net"
 def cli():
     logging.basicConfig(level=logging.INFO)
 
-    parser = argparse.ArgumentParser(description="Update minecraft server.")
+    parser = argparse.ArgumentParser(prog="update")
     parser.add_argument(
         "--config-input", metavar="FILE", type=str, default="config.in.json"
     )
