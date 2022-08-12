@@ -49,8 +49,8 @@ def main(args):
 
 def preprocess(config):
     curse = CurseAPI()
-    FABRIC_TYPE = 4
-    game_version = config["server"]["game"]["version"]
+    #FABRIC_TYPE = 4
+    #game_version = config["server"]["game"]["version"]
     mods_cfg = config["mods"]
     for k, v in enumerate(mods_cfg):
         if isinstance(v, str) or v.get("url"):
@@ -64,10 +64,13 @@ curl -X GET 'https://api.curseforge.com/v1/mods/search?gameVersion=1.18.2&modLoa
 -H 'Accept: application/json' \
 -H "x-api-key: $CURSEFORGE_API_KEY"
 
+                注意，gameId=432&classId=6 指定的是 mc mod
+
                 '''
 
                 search_results = curse.get(
-                    f"mods/search?gameId=432&classId=6&gameVersion={game_version}&modLoaderType={FABRIC_TYPE}&slug={slug}"
+                    f"mods/search?gameId=432&classId=6&slug={slug}" #按照文档，这个能唯一确定一条结果
+                    #f"mods/search?gameId=432&classId=6&gameVersion={game_version}&modLoaderType={FABRIC_TYPE}&slug={slug}"
                 )["data"]
                 if (len(search_results) != 1):
                     print("[warn]: the search result is not unique: ", search_results)
