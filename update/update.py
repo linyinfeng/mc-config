@@ -67,15 +67,15 @@ curl -X GET 'https://api.curseforge.com/v1/mods/search?gameVersion=1.18.2&modLoa
                 '''
 
                 search_results = curse.get(
-                    f"mods/search?gameId=432&gameVersion={game_version}&modLoaderType={FABRIC_TYPE}&slug={slug}"
+                    f"mods/search?gameId=432&classId=6&gameVersion={game_version}&modLoaderType={FABRIC_TYPE}&slug={slug}"
                 )["data"]
                 if (len(search_results) != 1):
                     print("[warn]: the search result is not unique: ", search_results)
-                mod_id = search_results[0]["id"]
+                (mod_id, mod_name) = (search_results[0]["id"], search_results[0]["name"])
+                mod_cfg = {"name": mod_name, f"{website}Id": mod_id}
             else:
-                mod_id = slug
+                mod_cfg = {"name": f"{website.lower()}:{slug}", f"{website}Id": slug}
 
-            mod_cfg = {"name": f"{website.lower()}:{slug}", f"{website}Id": mod_id}
             mod_cfg.update(opts)
             mods_cfg[k] = mod_cfg
 
