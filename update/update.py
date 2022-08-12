@@ -46,6 +46,7 @@ def main(args):
             json.dump(config, f, indent=2)
             logging.info("done")
 
+
 def preprocess(config):
     curse = CurseAPI()
     FABRIC_TYPE = 4
@@ -56,8 +57,16 @@ def preprocess(config):
             (website, slug) = parse_mod_url(v)
 
             if website == "curseForge":
+                ''' API Example:
+
+curl -X GET 'https://api.curseforge.com/v1/mods/search?gameVersion=1.18.2&modLoaderType\=4&slug=xaeros-minimap&gameId=432' \
+-H 'Accept: application/json' \
+-H "x-api-key: $CURSEFORGE_API_KEY"
+
+                '''
+
                 search_results = curse.get(
-                    f"mods/search?gameVersion={game_version}&modLoaderType={FABRIC_TYPE}&slug={slug}"
+                    f"mods/search?gameId=432&gameVersion={game_version}&modLoaderType={FABRIC_TYPE}&slug={slug}"
                 )["data"]
                 if (len(search_results) != 1):
                     print("[warn]: the search result is not unique: ", search_results)
@@ -66,6 +75,7 @@ def preprocess(config):
                 mod_id = slug
 
             mods_cfg[k] = {"name": f"{website.lower()}:{slug}", f"{website}Id": mod_id}
+
 
 def parse_mod_url(url: str):
     '''
@@ -83,6 +93,7 @@ def parse_mod_url(url: str):
             uri = url[len(pat):]
             return (website, uri)
     raise RuntimeError("invalid Mod URL: " + url)
+
 
 def update(args, config):
     game_version = config["server"]["game"]["version"]
