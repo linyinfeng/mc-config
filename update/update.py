@@ -56,9 +56,12 @@ def preprocess(config):
             (website, slug) = parse_mod_url(v)
 
             if website == "curseForge":
-                mod_id = curse.get(
+                search_results = curse.get(
                     f"mods/search?gameVersion={game_version}&modLoaderType={FABRIC_TYPE}&slug={slug}"
-                )["data"]["id"]
+                )["data"]
+                if (len(search_results) != 1):
+                    print("[warn]: the search result is not unique: ", search_results)
+                mod_id = search_results[0]["id"]
             else:
                 mod_id = slug
 
