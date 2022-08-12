@@ -53,8 +53,9 @@ def preprocess(config):
     game_version = config["server"]["game"]["version"]
     mods_cfg = config["mods"]
     for k, v in enumerate(mods_cfg):
-        if isinstance(v, str):
-            (website, slug) = parse_mod_url(v)
+        if isinstance(v, str) or v.get("url"):
+            (url, opts) = (v, {}) if isinstance(v, str) else (v.get("url"), v)
+            (website, slug) = parse_mod_url(url)
 
             if website == "curseForge":
                 ''' API Example:
@@ -74,7 +75,9 @@ curl -X GET 'https://api.curseforge.com/v1/mods/search?gameVersion=1.18.2&modLoa
             else:
                 mod_id = slug
 
-            mods_cfg[k] = {"name": f"{website.lower()}:{slug}", f"{website}Id": mod_id}
+            mod_cfg = {"name": f"{website.lower()}:{slug}", f"{website}Id": mod_id}
+            mod_cfg.update(opts)
+            mods_cfg[k] = mod_cfg
 
 
 def parse_mod_url(url: str):
