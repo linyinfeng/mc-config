@@ -47,11 +47,20 @@ def main(args):
             logging.info("done")
 
 def preprocess(config):
+    curse = CurseAPI()
     mods_cfg = config["mods"]
     for k, v in enumerate(mods_cfg):
         if isinstance(v, str):
-            (website, uri) = parse_mod_url(v)
-            mods_cfg[k] = {"name": f"{website.lower()}:{uri}", f"{website}Id": uri}
+            (website, slug) = parse_mod_url(v)
+
+            if website == "curseForge":
+                mod_id = curse.get(
+                    f"mods/search?gameVersion={game_version}&modLoaderType={FABRIC_TYPE}&slug={slug}"
+                )["data"]["id"]
+            else:
+                mod_id = slug
+
+            mods_cfg[k] = {"name": f"{website.lower()}:{slug}", f"{website}Id": mod_id}
 
 def parse_mod_url(url: str):
     '''
