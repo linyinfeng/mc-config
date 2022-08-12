@@ -55,7 +55,7 @@ def update_mods(args, game_version, mods_cfg):
     modrinth = ModrinthAPI()
     curse = CurseAPI()
     for mod_cfg in mods_cfg:
-        name = mod_cfg['name']
+        name = mod_cfg["name"]
         logging.info(f"updating mod '{name}'...")
         update_mod(args, name, modrinth, curse, game_version, mod_cfg)
 
