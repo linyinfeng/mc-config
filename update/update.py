@@ -48,6 +48,8 @@ def main(args):
 
 def preprocess(config):
     curse = CurseAPI()
+    FABRIC_TYPE = 4
+    game_version = config["server"]["game"]["version"]
     mods_cfg = config["mods"]
     for k, v in enumerate(mods_cfg):
         if isinstance(v, str):
