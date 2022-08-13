@@ -110,14 +110,20 @@ def update_mods(args, game_version, mods_cfg):
     modrinth = ModrinthAPI()
     curse = CurseAPI()
     for mod_cfg in mods_cfg:
-        logging.info(f"updating mod '{mod_cfg['name']}'...")
-        update_mod(args, modrinth, curse, game_version, mod_cfg)
+        name = mod_cfg["name"]
+        logging.info(f"updating mod '{name}'...")
+        update_mod(args, name, modrinth, curse, game_version, mod_cfg)
 
 
-def update_mod(args, modrinth, curse, global_game_version, mod_cfg):
+def update_mod(args, name, modrinth, curse, global_game_version, mod_cfg):
+    manual = lookup(mod_cfg, "manual", False)
+    if manual:
+        logging.info(f"skip mod '{name}'")
+        return
+
     is_modrinth = "modrinthId" in mod_cfg
     is_curse = "curseForgeId" in mod_cfg
-    assert is_modrinth or is_curse
+    assert is_modrinth or is_curse or manual
     assert not (is_modrinth and is_curse)
 
     game_version = lookup(mod_cfg, "fakeGameVersion", global_game_version)
