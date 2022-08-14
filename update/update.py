@@ -302,7 +302,7 @@ class CurseAPI:
         self.api_key = os.environ.get("CURSEFORGE_API_KEY", "")
 
     def headers(self):
-        return {"x-api-key": self.api_key}
+        return {"Accept": "application/json", "x-api-key": self.api_key}
 
     def get(self, resource):
         response = get_url(f"{CURSE_API}/{resource}", headers=self.headers())
