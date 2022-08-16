@@ -38,7 +38,9 @@ def main(args):
     if not args.dry_run and os.path.isfile(args.config_output):
         logging.info(f"copying '{args.config_output}' to '{args.config_output}.bak'...")
         shutil.copy(args.config_output, f"{args.config_output}.bak")
-    update(args, config)
+    apis = {"curseForge": CurseAPI(), "modrinth": ModrinthAPI()}
+    preprocess(args, apis, config)
+    update(args, apis, config)
     if not args.dry_run:
         with open(args.config_output, "w") as f:
             logging.info(f"saving config to '{args.config_output}'...")
@@ -46,21 +48,92 @@ def main(args):
             logging.info("done")
 
 
-def update(args, config):
+def preprocess(args, apis, config):
+    modrinth = apis["modrinth"]
+    curse = apis["curseForge"]
+    CURSE_FORGE_CLASS_ID_MC_MOD = 6
+    CURSE_FORGE_GAME_ID_MC = 432
+
+    mods_cfg = config["mods"]
+    # bare strings are interpreted as urls
+    for k, v in enumerate(mods_cfg):
+        if isinstance(v, str):
+            mods_cfg[k] = {"url": v}
+
+    # extract name and slug/id from url
+    # modrinth api support both id and slug
+    # curseforge api requires project id
+    for k, v in enumerate(mods_cfg):
+        if "url" in v:
+            exclusive_keys = ["name", "modrinthId", "curseForgeId"]
+            for ek in exclusive_keys:
+                if ek in v:
+                    raise RuntimeError(
+                        f"'{ek}' will be automatically extracted from url"
+                    )
+
+            url = v["url"]
+            (website, slug) = parse_mod_url(url)
+
+            if website == "modrinth":
+                project_info = modrinth.get(f"project/{slug}")
+                new_cfg = {
+                    "name": f"{project_info['title']}",
+                    f"{website}Id": project_info["id"],
+                }
+            elif website == "curseForge":
+                search_results = curse.get(
+                    f"mods/search?gameId={CURSE_FORGE_GAME_ID_MC}&classId={CURSE_FORGE_CLASS_ID_MC_MOD}&slug={slug}"
+                )["data"]
+                # https://docs.curseforge.com/#search-mods
+                # query with classId and slug will result in a unique result
+                assert len(search_results) <= 1
+                if len(search_results) == 0:
+                    raise RuntimeError(
+                        f"unable to find mod on curseforge with slug '{slug}'"
+                    )
+                search_result = search_results[0]
+                new_cfg = {
+                    "name": search_result["name"],
+                    f"{website}Id": search_result["id"],
+                }
+            else:
+                raise RuntimeError("unreachable")
+
+            mods_cfg[k].update(new_cfg)
+
+
+def parse_mod_url(url: str):
+    """
+    URL Examples:
+
+        https://www.curseforge.com/minecraft/mc-mods/jei
+        https://modrinth.com/mod/sodium
+    """
+    url_patterns = {
+        "modrinth": "https://modrinth.com/mod/",
+        "curseForge": "https://www.curseforge.com/minecraft/mc-mods/",
+    }
+    for website, pat in url_patterns.items():
+        if url.startswith(pat):
+            uri = url[len(pat) :]
+            return (website, uri)
+    raise RuntimeError("invalid Mod URL: " + url)
+
+
+def update(args, apis, config):
     game_version = config["server"]["game"]["version"]
-    update_mods(args, game_version, config["mods"])
+    update_mods(args, apis, game_version, config["mods"])
 
 
-def update_mods(args, game_version, mods_cfg):
-    modrinth = ModrinthAPI()
-    curse = CurseAPI()
+def update_mods(args, apis, game_version, mods_cfg):
     for mod_cfg in mods_cfg:
         name = mod_cfg["name"]
         logging.info(f"updating mod '{name}'...")
-        update_mod(args, name, modrinth, curse, game_version, mod_cfg)
+        update_mod(args, name, apis, game_version, mod_cfg)
 
 
-def update_mod(args, name, modrinth, curse, global_game_version, mod_cfg):
+def update_mod(args, name, apis, global_game_version, mod_cfg):
     manual = lookup(mod_cfg, "manual", False)
     if manual:
         logging.info(f"skip mod '{name}'")
@@ -74,9 +147,9 @@ def update_mod(args, name, modrinth, curse, global_game_version, mod_cfg):
     game_version = lookup(mod_cfg, "fakeGameVersion", global_game_version)
 
     if is_modrinth:
-        update_mod_modrinth(args, modrinth, game_version, mod_cfg)
+        update_mod_modrinth(args, apis["modrinth"], game_version, mod_cfg)
     elif is_curse:
-        update_mod_curse(args, curse, game_version, mod_cfg)
+        update_mod_curse(args, apis["curseForge"], game_version, mod_cfg)
 
 
 def update_mod_modrinth(args, modrinth, game_version, mod_cfg):
@@ -247,7 +320,7 @@ class CurseAPI:
         self.api_key = os.environ.get("CURSEFORGE_API_KEY", "")
 
     def headers(self):
-        return {"x-api-key": self.api_key}
+        return {"Accept": "application/json", "x-api-key": self.api_key}
 
     def get(self, resource):
         response = get_url(f"{CURSE_API}/{resource}", headers=self.headers())
