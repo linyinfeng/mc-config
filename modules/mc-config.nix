@@ -121,22 +121,22 @@
           '';
         };
         sha1 = lib.mkOption {
-          type = with lib.types; nullOr str;
-          default = null;
+          type = lib.types.str;
+          default = "";
           description = lib.mdDoc ''
             Sha1 hash of the file.
           '';
         };
         sha256 = lib.mkOption {
-          type = with lib.types; nullOr str;
-          default = null;
+          type = lib.types.str;
+          default = "";
           description = lib.mdDoc ''
             Sha1 hash of the file.
           '';
         };
         sha512 = lib.mkOption {
-          type = with lib.types; nullOr str;
-          default = null;
+          type = lib.types.str;
+          default = "";
           description = lib.mdDoc ''
             Sha1 hash of the file.
           '';
