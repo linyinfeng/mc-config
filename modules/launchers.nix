@@ -24,7 +24,7 @@ in {
       defaultText = "fromJSON (readFile config.launchers.lockFile)";
     };
     mkLaunchers = lib.mkOption {
-      type = lib.types.functionTo options.launchers.launchers.type;
+      type = lib.types.functionTo options.launchers.build.type;
       default = self.lib.mkLaunchers pkgs;
       defaultText = "mc-config.lib.mkLaunchers pkgs";
       description = lib.mdDoc ''
