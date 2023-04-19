@@ -16,17 +16,21 @@
     in utils.mkFlake {
       inherit self inputs;
 
-      lib.mkLaunchers = pkgs: config:
-        let system = pkgs.stdenv.hostPlatform.system;
-        in pkgs.callPackage ./pkgs ({
-          minecraft-nix-pkgs = minecraft-nix.legacyPackages.${system};
-        } // config);
+      lib = {
+        minecraftConfiguration = args: import ./modules (args // { inherit self inputs; });
+        mkLaunchers = pkgs: config:
+          let system = pkgs.stdenv.hostPlatform.system;
+          in pkgs.callPackage ./pkgs ({
+            minecraft-nix-pkgs = minecraft-nix.legacyPackages.${system};
+          } // config);
+      };
 
       outputsBuilder = channels:
         let
           pkgs = channels.nixpkgs;
           system = pkgs.stdenv.hostPlatform.system;
-        in {
+        in
+        {
           packages.update = pkgs.callPackage ./update { };
           checks = self.packages.${system};
           devShells.default = pkgs.mkShell {
