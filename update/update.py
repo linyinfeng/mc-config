@@ -332,6 +332,10 @@ def modrinth_latest_version(versions):
 class CurseAPI:
     def __init__(self):
         self.api_key = os.environ.get("CURSEFORGE_API_KEY", "")
+        if self.api_key == "":
+            logging.info("no CurseForge api key")
+        else:
+            logging.info("CurseForge api key set")
 
     def headers(self):
         return {"Accept": "application/json", "x-api-key": self.api_key}
