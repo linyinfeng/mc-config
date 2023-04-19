@@ -1,24 +1,8 @@
 {
-  config,
   lib,
+  options,
   ...
 }: let
-  mcConfigOptions = {
-    options = {
-      game.version = lib.mkOption {
-        type = lib.types.str;
-        description = lib.mdDoc ''
-          Minecraft game version.
-        '';
-      };
-      mods = lib.mkOption {
-        type = with lib.types; listOf (oneOf [(submodule modOptions) str]);
-        description = lib.mdDoc ''
-          Fabric mods definition.
-        '';
-      };
-    };
-  };
   modOptions = {
     options = {
       name = lib.mkOption {
@@ -97,7 +81,7 @@
         '';
       };
       files = lib.mkOption {
-        type = with lib.types; listOf (submodule fileOptions);
+        type = lib.types.listOf fileOptions;
         default = [];
         description = lib.mdDoc ''
           Manually specify mod files.
@@ -105,51 +89,13 @@
       };
     };
   };
-  fileOptions = {
-    options = {
-      filename = lib.mkOption {
-        type = lib.types.str;
-        description = lib.mdDoc ''
-          Filename of the mod file.
-        '';
-      };
-      file = {
-        url = lib.mkOption {
-          type = lib.types.str;
-          description = lib.mdDoc ''
-            URL to the file.
-          '';
-        };
-        sha1 = lib.mkOption {
-          type = lib.types.str;
-          default = "";
-          description = lib.mdDoc ''
-            Sha1 hash of the file.
-          '';
-        };
-        sha256 = lib.mkOption {
-          type = lib.types.str;
-          default = "";
-          description = lib.mdDoc ''
-            Sha1 hash of the file.
-          '';
-        };
-        sha512 = lib.mkOption {
-          type = lib.types.str;
-          default = "";
-          description = lib.mdDoc ''
-            Sha1 hash of the file.
-          '';
-        };
-      };
-    };
-  };
+  fileOptions = lib.types.submodule ../_common/file.nix;
 in {
   options = {
-    mcConfig = lib.mkOption {
-      type = lib.types.submodule mcConfigOptions;
+    minecraft.mods = lib.mkOption {
+      type = with lib.types; listOf (oneOf [(submodule modOptions) str]);
       description = lib.mdDoc ''
-        Minecraft configurations.
+        Fabric mods definition.
       '';
     };
   };

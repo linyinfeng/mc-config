@@ -23,21 +23,26 @@ in {
         description = lib.mdDoc ''
           Update script to create lock file.
         '';
-        defaultText = "\${config.update.package}/bin/update --config-input MC_CONFIG --config-output \${config.update.lockFileName}";
+        defaultText = "\${config.update.package}/bin/update --config CONFIG_FILE --lock-file \${config.update.lockFile}";
         default = let
-          configFile = pkgs.writeText "mc-config-${config.name}" (builtins.toJSON config.mcConfig);
+          configContent = {
+            inherit (config.minecraft) game mods;
+          };
+          configFile =
+            pkgs.writeText "mc-config-${config.name}.json"
+            (builtins.toJSON configContent);
         in
           pkgs.writeShellScriptBin "mc-config-update-${config.name}" ''
             "${cfg.package}/bin/update" \
-              --config-input ${configFile} \
-              --config-output ${cfg.lockFileName} \
+              --config ${configFile} \
+              --lock-file ${cfg.lockFile} \
               "$@"
           '';
       };
-      lockFileName = lib.mkOption {
+      lockFile = lib.mkOption {
         type = lib.types.str;
         description = lib.mdDoc ''
-          Name of the lock file, used by the update script.
+          Output path of the lock file, used by the update script.
         '';
         default = "${config.name}.lock";
         defaultText = "\${config.name}.lock";

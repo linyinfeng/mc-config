@@ -11,7 +11,7 @@
     then [(lib.nameValuePair "minecraft-${name}-${key}" value)]
     else [];
   mkPackages = name: mcCfg:
-    lib.flatten (lib.mapAttrsToList (mkPackage name) mcCfg.config.launchers.build)
+    lib.flatten (lib.mapAttrsToList (mkPackage name) mcCfg.config.minecraft.build)
     ++ [
       (lib.nameValuePair "minecraft-${name}-update" mcCfg.config.update.script)
     ];
@@ -22,11 +22,11 @@
     })
     (lib.nameValuePair "minecraft-${name}-client" {
       type = "app";
-      program = lib.getExe mcCfg.config.launchers.build.client-launcher;
+      program = lib.getExe mcCfg.config.minecraft.build.client;
     })
     (lib.nameValuePair "minecraft-${name}-server" {
       type = "app";
-      program = lib.getExe mcCfg.config.launchers.build.server-launcher;
+      program = lib.getExe mcCfg.config.minecraft.build.server;
     })
   ];
   mkChecks = mkPackages;

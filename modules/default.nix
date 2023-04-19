@@ -13,8 +13,7 @@
         modules
         ++ mmModules
         ++ [
-          "${inputs.nixpkgs}/nixos/modules/misc/nixpkgs.nix"
-          {nixpkgs.hostPlatform = pkgs.stdenv.hostPlatform;}
+          {_module.args = {inherit pkgs;};}
         ];
       specialArgs = {
         inherit inputs self;

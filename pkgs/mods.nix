@@ -1,17 +1,15 @@
 {
-  stdenv,
   fetchurl,
   lib,
-  launcherConfig,
+  config,
 }: let
-  convertFile = f:
-    stdenv.mkDerivation {
-      name = f.filename;
-      src = fetchurl f.file;
-      dontUnpack = true;
-      installPhase = ''
-        cp $src $out
-      '';
-    };
+  lockMods = config.lock.content.mods;
+  manualMods = lib.flatten (map (m:
+    if lib.isAttrs m
+    then m.files
+    else [])
+  config.minecraft.mods);
+  mods = lockMods ++ manualMods;
+  convertFile = f: fetchurl ({name = f.filename;} // f.file);
 in
-  lib.flatten (map (cfg: map convertFile cfg.files) launcherConfig.mods)
+  map convertFile mods

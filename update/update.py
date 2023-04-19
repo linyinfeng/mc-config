@@ -19,12 +19,8 @@ CURSE_CDN = "https://edge.forgecdn.net"
 
 def cli():
     parser = argparse.ArgumentParser(prog="update")
-    parser.add_argument(
-        "--config-input", metavar="FILE", type=str, default="config.in.json"
-    )
-    parser.add_argument(
-        "--config-output", metavar="FILE", type=str, default="config.json"
-    )
+    parser.add_argument("--config", metavar="FILE", type=str, default="config.json")
+    parser.add_argument("--lock-file", metavar="FILE", type=str, default="lock.json")
     parser.add_argument("--no-backup", action="store_true")
     parser.add_argument(
         "--log", metavar="LEVEL", type=str, default="INFO", help="log level"
@@ -43,19 +39,19 @@ def cli():
 
 
 def main(args):
-    with open(args.config_input) as f:
-        logging.info(f"loading '{args.config_input}'...")
+    with open(args.config) as f:
+        logging.info(f"loading '{args.config}'...")
         config = json.load(f)
-    if not args.no_backup and not args.dry_run and os.path.isfile(args.config_output):
-        logging.info(f"copying '{args.config_output}' to '{args.config_output}.bak'...")
-        shutil.copy(args.config_output, f"{args.config_output}.bak")
+    if not args.no_backup and not args.dry_run and os.path.isfile(args.lock_file):
+        logging.info(f"copying '{args.lock_file}' to '{args.lock_file}.bak'...")
+        shutil.copy(args.lock_file, f"{args.lock_file}.bak")
     apis = {"curseForge": CurseAPI(), "modrinth": ModrinthAPI()}
     preprocess(args, apis, config)
-    update(args, apis, config)
+    lock = update(args, apis, config)
     if not args.dry_run:
-        with open(args.config_output, "w") as f:
-            logging.info(f"saving config to '{args.config_output}'...")
-            json.dump(config, f, indent=2)
+        with open(args.lock_file, "w") as f:
+            logging.info(f"saving config to '{args.lock_file}'...")
+            json.dump(lock, f, indent=2)
             logging.info("done")
 
 
@@ -140,18 +136,20 @@ def parse_mod_url(url: str):
 
 
 def update(args, apis, config):
+    lock = {"mods": []}
     game_version = config["game"]["version"]
-    update_mods(args, apis, game_version, config["mods"])
+    update_mods(args, apis, game_version, config["mods"], lock["mods"])
+    return lock
 
 
-def update_mods(args, apis, game_version, mods_cfg):
+def update_mods(args, apis, game_version, mods_cfg, mods_lock):
     for mod_cfg in mods_cfg:
         name = mod_cfg["name"]
         logging.info(f"updating mod '{name}'...")
-        update_mod(args, name, apis, game_version, mod_cfg)
+        update_mod(args, name, apis, game_version, mod_cfg, mods_lock)
 
 
-def update_mod(args, name, apis, global_game_version, mod_cfg):
+def update_mod(args, name, apis, global_game_version, mod_cfg, mods_lock):
     manual = lookup(mod_cfg, "manual", False)
     if manual:
         logging.info(f"skip mod '{name}'")
@@ -165,12 +163,16 @@ def update_mod(args, name, apis, global_game_version, mod_cfg):
     game_version = lookup(mod_cfg, "fakeGameVersion", global_game_version)
 
     if is_modrinth:
-        update_mod_modrinth(args, apis["modrinth"], game_version, name, mod_cfg)
+        update_mod_modrinth(
+            args, apis["modrinth"], game_version, name, mod_cfg, mods_lock
+        )
     elif is_curse:
-        update_mod_curse(args, apis["curseForge"], game_version, name, mod_cfg)
+        update_mod_curse(
+            args, apis["curseForge"], game_version, name, mod_cfg, mods_lock
+        )
 
 
-def update_mod_modrinth(args, modrinth, game_version, name, mod_cfg):
+def update_mod_modrinth(args, modrinth, game_version, name, mod_cfg, mods_lock):
     modrinth_id = mod_cfg["modrinthId"]
     compatible_versions = modrinth.get(
         f'project/{modrinth_id}/version?loaders=["fabric"]&game_versions=["{game_version}"]'
@@ -209,11 +211,12 @@ def update_mod_modrinth(args, modrinth, game_version, name, mod_cfg):
             filtered_file,
         )
     ]
-    assert len(file_list) >= 1
-    mod_cfg["files"] = file_list
+    if len(file_list) == 0:
+        raise RuntimeError(f"can not find any valid files for {name}")
+    mods_lock.extend(file_list)
 
 
-def update_mod_curse(args, curse, game_version, name, mod_cfg):
+def update_mod_curse(args, curse, game_version, name, mod_cfg, mods_lock):
     curse_id = mod_cfg["curseForgeId"]
     FABRIC_TYPE = 4
     # no paginator support, at most 50 versions
@@ -251,7 +254,7 @@ def update_mod_curse(args, curse, game_version, name, mod_cfg):
         ]
         id_part = "/".join(file_id_splitted)
         download_url = f"{CURSE_CDN}/files/{id_part}/{filename}"
-    mod_cfg["files"] = [
+    mods_lock.append(
         {
             "filename": filename,
             "file": {
@@ -259,7 +262,7 @@ def update_mod_curse(args, curse, game_version, name, mod_cfg):
                 "sha1": hash["value"],
             },
         }
-    ]
+    )
 
 
 def lookup(d, key, default):
