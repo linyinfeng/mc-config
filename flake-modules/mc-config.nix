@@ -10,7 +10,25 @@
     if lib.isDerivation value
     then [(lib.nameValuePair "minecraft-${name}-${key}" value)]
     else [];
-  mkPackages = name: mcCfg: lib.flatten (lib.mapAttrsToList (mkPackage name) mcCfg.config.launchers.build);
+  mkPackages = name: mcCfg:
+    lib.flatten (lib.mapAttrsToList (mkPackage name) mcCfg.config.launchers.build)
+    ++ [
+      (lib.nameValuePair "minecraft-${name}-update" mcCfg.config.update.script)
+    ];
+  mkApps = name: mcCfg: [
+    (lib.nameValuePair "minecraft-${name}-update" {
+      type = "app";
+      program = lib.getExe mcCfg.config.update.script;
+    })
+    (lib.nameValuePair "minecraft-${name}-client" {
+      type = "app";
+      program = lib.getExe mcCfg.config.launchers.build.client-launcher;
+    })
+    (lib.nameValuePair "minecraft-${name}-server" {
+      type = "app";
+      program = lib.getExe mcCfg.config.launchers.build.server-launcher;
+    })
+  ];
   mkChecks = mkPackages;
   mkAllWith = fn: mcCfgs: lib.listToAttrs (lib.flatten (lib.mapAttrsToList fn mcCfgs));
 in {
@@ -31,6 +49,7 @@ in {
   config = {
     perSystem = {self', ...}: {
       packages = mkAllWith mkPackages self'.minecraftConfigurations;
+      apps = mkAllWith mkApps self'.minecraftConfigurations;
       checks = mkAllWith mkChecks self'.minecraftConfigurations;
     };
   };
