@@ -75,7 +75,10 @@ def preprocess(args, apis, config):
     # modrinth api support both id and slug
     # curseforge api requires project id
     for k, v in enumerate(mods_cfg):
-        if lookup(v, "url", None) is not None:
+        url = lookup(v, "url", None)
+        if url is not None:
+            logging.info(f"preprocessing mod url '{url}'...")
+
             exclusive_keys = ["name", "modrinthId", "curseForgeId"]
             for ek in exclusive_keys:
                 if lookup(v, ek, None) is not None:
@@ -83,7 +86,6 @@ def preprocess(args, apis, config):
                         f"'{ek}' will be automatically extracted from url"
                     )
 
-            url = v["url"]
             (website, slug) = parse_mod_url(url)
 
             if website == "modrinth":
@@ -114,6 +116,14 @@ def preprocess(args, apis, config):
             mods_cfg[k].update(new_cfg)
 
 
+MOD_URL_PATTERNS = {
+    "modrinth": re.compile("^https://modrinth.com/(?:mod|plugin)/(?P<slug>.*)$"),
+    "curseForge": re.compile(
+        "^https://www.curseforge.com/minecraft/mc-mods/(?P<slug>.*)$"
+    ),
+}
+
+
 def parse_mod_url(url: str):
     """
     URL Examples:
@@ -121,14 +131,11 @@ def parse_mod_url(url: str):
         https://www.curseforge.com/minecraft/mc-mods/jei
         https://modrinth.com/mod/sodium
     """
-    url_patterns = {
-        "modrinth": "https://modrinth.com/mod/",
-        "curseForge": "https://www.curseforge.com/minecraft/mc-mods/",
-    }
-    for website, pat in url_patterns.items():
-        if url.startswith(pat):
-            uri = url[len(pat) :]
-            return (website, uri)
+    for website, pat in MOD_URL_PATTERNS.items():
+        match = pat.match(url)
+        if match is not None:
+            slug = match.group("slug")
+            return (website, slug)
     raise RuntimeError("invalid Mod URL: " + url)
 
 
