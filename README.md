@@ -4,6 +4,11 @@ A simple Minecraft mod manager in nix (*fabric only*), based on [minecraft.nix](
 
 ## Usage
 
+Please refer to the template repository [mc-config-template](https://github.com/linyinfeng/mc-config-template), and read `flake.nix` and `example.nix`.
+
+<details>
+<summary>Legacy Style</summary>
+
 Create a `config.in.json` containing the game and mod specifications, for example [config.in.json](https://github.com/linyinfeng/mc-config-template/blob/main/config.in.json).
 
 Run `github:linyinfeng/mc-config#update` to create `config.json`, for example [config.json](https://github.com/linyinfeng/mc-config-template/blob/main/config.json).
@@ -32,6 +37,8 @@ contents = mc-config.lib.mkLaunchers pkgs {
 * `contents.mods`: a nix list containing all derivations of mods
 * `contents.mods-combined`: a nix derivation of a folder containing all mods
 * `contents.mods-zip`: a nix derivation of a zip file containing all mods
+
+</details>
 
 ## About CurseForge
 
