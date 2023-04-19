@@ -9,6 +9,7 @@ import re
 import shutil
 import os
 import urllib.parse
+import traceback
 
 FABRIC_META = "https://meta.fabricmc.net/v2"
 MODRINTH_API = "https://api.modrinth.com/v2"
@@ -17,7 +18,6 @@ CURSE_CDN = "https://edge.forgecdn.net"
 
 
 def cli():
-    logging.basicConfig(level=logging.INFO)
 
     parser = argparse.ArgumentParser(prog="update")
     parser.add_argument(
@@ -26,16 +26,25 @@ def cli():
     parser.add_argument(
         "--config-output", metavar="FILE", type=str, default="config.json"
     )
+    parser.add_argument("--no-backup", action='store_true')
+    parser.add_argument("--log", metavar="LEVEL", type=str, default="INFO", help="log level")
     parser.add_argument("--dry-run", action=argparse.BooleanOptionalAction)
     args = parser.parse_args()
-    main(args)
 
+    log_level = args.log
+    logging.basicConfig(level=log_level)
+
+    try:
+        main(args)
+    except Exception as e:
+        logging.error(e)
+        logging.debug(traceback.format_exc())
 
 def main(args):
     with open(args.config_input) as f:
         logging.info(f"loading '{args.config_input}'...")
         config = json.load(f)
-    if not args.dry_run and os.path.isfile(args.config_output):
+    if not args.no_backup and not args.dry_run and os.path.isfile(args.config_output):
         logging.info(f"copying '{args.config_output}' to '{args.config_output}.bak'...")
         shutil.copy(args.config_output, f"{args.config_output}.bak")
     apis = {"curseForge": CurseAPI(), "modrinth": ModrinthAPI()}
@@ -64,10 +73,10 @@ def preprocess(args, apis, config):
     # modrinth api support both id and slug
     # curseforge api requires project id
     for k, v in enumerate(mods_cfg):
-        if "url" in v:
+        if lookup(v, "url", None) is not None:
             exclusive_keys = ["name", "modrinthId", "curseForgeId"]
             for ek in exclusive_keys:
-                if ek in v:
+                if lookup(v, ek, None) is not None:
                     raise RuntimeError(
                         f"'{ek}' will be automatically extracted from url"
                     )
@@ -122,7 +131,7 @@ def parse_mod_url(url: str):
 
 
 def update(args, apis, config):
-    game_version = config["server"]["game"]["version"]
+    game_version = config["game"]["version"]
     update_mods(args, apis, game_version, config["mods"])
 
 
@@ -139,20 +148,20 @@ def update_mod(args, name, apis, global_game_version, mod_cfg):
         logging.info(f"skip mod '{name}'")
         return
 
-    is_modrinth = "modrinthId" in mod_cfg
-    is_curse = "curseForgeId" in mod_cfg
+    is_modrinth = lookup(mod_cfg, "modrinthId", False)
+    is_curse = lookup(mod_cfg, "curseForgeId", False)
     assert is_modrinth or is_curse or manual
     assert not (is_modrinth and is_curse)
 
     game_version = lookup(mod_cfg, "fakeGameVersion", global_game_version)
 
     if is_modrinth:
-        update_mod_modrinth(args, apis["modrinth"], game_version, mod_cfg)
+        update_mod_modrinth(args, apis["modrinth"], game_version, name, mod_cfg)
     elif is_curse:
-        update_mod_curse(args, apis["curseForge"], game_version, mod_cfg)
+        update_mod_curse(args, apis["curseForge"], game_version, name, mod_cfg)
 
 
-def update_mod_modrinth(args, modrinth, game_version, mod_cfg):
+def update_mod_modrinth(args, modrinth, game_version, name, mod_cfg):
     modrinth_id = mod_cfg["modrinthId"]
     compatible_versions = modrinth.get(
         f'project/{modrinth_id}/version?loaders=["fabric"]&game_versions=["{game_version}"]'
@@ -165,7 +174,9 @@ def update_mod_modrinth(args, modrinth, game_version, mod_cfg):
             return False
         return True
 
-    filtered_versions = filter(version_filter, compatible_versions)
+    filtered_versions = [*filter(version_filter, compatible_versions)]
+    if len(filtered_versions) == 0:
+        raise RuntimeError(f"can not find any valid versions for {name}")
     latest_version = modrinth_latest_version(filtered_versions)
     mod_cfg["version"] = latest_version["version_number"]
 
@@ -193,7 +204,7 @@ def update_mod_modrinth(args, modrinth, game_version, mod_cfg):
     mod_cfg["files"] = file_list
 
 
-def update_mod_curse(args, curse, game_version, mod_cfg):
+def update_mod_curse(args, curse, game_version, name, mod_cfg):
     curse_id = mod_cfg["curseForgeId"]
     FABRIC_TYPE = 4
     # no paginator support, at most 50 versions
@@ -211,7 +222,9 @@ def update_mod_curse(args, curse, game_version, mod_cfg):
             return False
         return True
 
-    filtered_versions = filter(version_filter, compatible_versions)
+    filtered_versions = [*filter(version_filter, compatible_versions)]
+    if len(filtered_versions) == 0:
+        raise RuntimeError(f"can not find any valid versions for ${name}")
     latest_version = curse_latest_version(filtered_versions)
 
     mod_cfg["version"] = latest_version["displayName"]
@@ -241,14 +254,13 @@ def update_mod_curse(args, curse, game_version, mod_cfg):
 
 
 def lookup(d, key, default):
-    if key not in d:
+    if key not in d or d[key] is None:
         return default
     else:
         return d[key]
 
 
 def get_url(url, **kw_args):
-    logging.info(f"getting '{url}'...")
     response = requests.get(url, **kw_args)
     if response.status_code == 200:
         return response
