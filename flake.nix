@@ -26,15 +26,18 @@
       imports = [
         inputs.treefmt-nix.flakeModule
       ];
-      flake.lib = {
-        minecraftConfiguration = args: import ./modules (args // {inherit self inputs;});
-        mkLaunchers = pkgs: config: let
-          system = pkgs.stdenv.hostPlatform.system;
-        in
-          pkgs.callPackage ./pkgs ({
-              minecraft-nix-pkgs = inputs.minecraft-nix.legacyPackages.${system};
-            }
-            // config);
+      flake = {
+        flakeModules = import ./flake-modules;
+        lib = {
+          minecraftConfiguration = args: import ./modules (args // {inherit self inputs;});
+          mkLaunchers = pkgs: config: let
+            system = pkgs.stdenv.hostPlatform.system;
+          in
+            pkgs.callPackage ./pkgs ({
+                minecraft-nix-pkgs = inputs.minecraft-nix.legacyPackages.${system};
+              }
+              // config);
+        };
       };
       perSystem = {
         self',
