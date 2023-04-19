@@ -1,9 +1,13 @@
-{ self, config, options, pkgs, lib, ... }:
-
-let
-  cfg = config.launchers;
-in
 {
+  self,
+  config,
+  options,
+  pkgs,
+  lib,
+  ...
+}: let
+  cfg = config.launchers;
+in {
   options.launchers = {
     lockFile = lib.mkOption {
       type = lib.types.path;
@@ -33,7 +37,7 @@ in
         Launcher packages.
       '';
       readOnly = true;
-      default = cfg.mkLaunchers { launcherConfig = config.launchers.lockedConfig; };
+      default = cfg.mkLaunchers {launcherConfig = config.launchers.lockedConfig;};
       defaultText = "config.launchers.mkLaunchers { launcherConfig = config.launchers.lockedConfig; }";
     };
   };

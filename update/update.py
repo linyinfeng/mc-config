@@ -18,7 +18,6 @@ CURSE_CDN = "https://edge.forgecdn.net"
 
 
 def cli():
-
     parser = argparse.ArgumentParser(prog="update")
     parser.add_argument(
         "--config-input", metavar="FILE", type=str, default="config.in.json"
@@ -26,8 +25,10 @@ def cli():
     parser.add_argument(
         "--config-output", metavar="FILE", type=str, default="config.json"
     )
-    parser.add_argument("--no-backup", action='store_true')
-    parser.add_argument("--log", metavar="LEVEL", type=str, default="INFO", help="log level")
+    parser.add_argument("--no-backup", action="store_true")
+    parser.add_argument(
+        "--log", metavar="LEVEL", type=str, default="INFO", help="log level"
+    )
     parser.add_argument("--dry-run", action=argparse.BooleanOptionalAction)
     args = parser.parse_args()
 
@@ -39,6 +40,7 @@ def cli():
     except Exception as e:
         logging.error(e)
         logging.debug(traceback.format_exc())
+
 
 def main(args):
     with open(args.config_input) as f:

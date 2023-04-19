@@ -1,10 +1,13 @@
-{ self, config, pkgs, lib, ... }:
-
-let
+{
+  self,
+  config,
+  pkgs,
+  lib,
+  ...
+}: let
   cfg = config.update;
   inherit (pkgs.stdenv.hostPlatform) system;
-in
-{
+in {
   options = {
     update = {
       package = lib.mkOption {
@@ -21,10 +24,9 @@ in
           Update script to create lock file.
         '';
         defaultText = "\${config.update.package}/bin/update --config-input MC_CONFIG --config-output \${config.update.lockFileName}";
-        default =
-          let
-            configFile = pkgs.writeText "mc-config-${config.name}" (builtins.toJSON config.mcConfig);
-          in
+        default = let
+          configFile = pkgs.writeText "mc-config-${config.name}" (builtins.toJSON config.mcConfig);
+        in
           pkgs.writeShellScriptBin "mc-config-update-${config.name}" ''
             "${cfg.package}/bin/update" \
               --config-input ${configFile} \

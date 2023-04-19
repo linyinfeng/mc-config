@@ -1,6 +1,8 @@
-{ config, lib, ... }:
-
-let
+{
+  config,
+  lib,
+  ...
+}: let
   mcConfigOptions = {
     options = {
       game.version = lib.mkOption {
@@ -10,7 +12,7 @@ let
         '';
       };
       mods = lib.mkOption {
-        type = with lib.types; listOf (oneOf [ (submodule modOptions) str ]);
+        type = with lib.types; listOf (oneOf [(submodule modOptions) str]);
         description = lib.mdDoc ''
           Fabric mods definition.
         '';
@@ -89,7 +91,7 @@ let
       };
       files = lib.mkOption {
         type = with lib.types; listOf (submodule fileOptions);
-        default = [ ];
+        default = [];
         description = lib.mdDoc ''
           Manually specify mod files.
         '';
@@ -132,8 +134,7 @@ let
       };
     };
   };
-in
-{
+in {
   options = {
     mcConfig = lib.mkOption {
       type = lib.types.submodule mcConfigOptions;

@@ -1,6 +1,9 @@
-{ stdenv, fetchurl, lib, launcherConfig }:
-
-let
+{
+  stdenv,
+  fetchurl,
+  lib,
+  launcherConfig,
+}: let
   convertFile = f:
     stdenv.mkDerivation {
       name = f.filename;
@@ -11,4 +14,4 @@ let
       '';
     };
 in
-lib.flatten (map (cfg: map convertFile cfg.files) launcherConfig.mods)
+  lib.flatten (map (cfg: map convertFile cfg.files) launcherConfig.mods)
