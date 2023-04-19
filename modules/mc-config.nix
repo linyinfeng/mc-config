@@ -75,6 +75,13 @@
           use this option to select the primary file.
         '';
       };
+      fakeGameVersion = lib.mkOption {
+        type = with lib.types; nullOr str;
+        default = null;
+        description = lib.mdDoc ''
+          Check the mod using this game version instead of `config.game.version`.
+        '';
+      };
       manual = lib.mkOption {
         type = lib.types.bool;
         default = false;
@@ -115,18 +122,21 @@
         };
         sha1 = lib.mkOption {
           type = with lib.types; nullOr str;
+          default = null;
           description = lib.mdDoc ''
             Sha1 hash of the file.
           '';
         };
         sha256 = lib.mkOption {
           type = with lib.types; nullOr str;
+          default = null;
           description = lib.mdDoc ''
             Sha1 hash of the file.
           '';
         };
         sha512 = lib.mkOption {
           type = with lib.types; nullOr str;
+          default = null;
           description = lib.mdDoc ''
             Sha1 hash of the file.
           '';
