@@ -4,6 +4,7 @@
     flake-parts.url = "github:hercules-ci/flake-parts";
     flake-parts.inputs.nixpkgs-lib.follows = "nixpkgs";
     flake-utils.url = "github:numtide/flake-utils";
+    flake-utils.inputs.systems.follows = "systems";
     systems.url = "github:nix-systems/default";
     minecraft-nix.url = "github:ninlives/minecraft.nix";
     minecraft-nix.inputs.nixpkgs.follows = "nixpkgs";
