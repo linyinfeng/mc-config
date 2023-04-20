@@ -30,14 +30,8 @@
         flakeModules = import ./flake-modules;
         lib = {
           minecraftConfiguration = args: import ./modules (args // {inherit self inputs;});
-          mkMinecraftPkgs = pkgs: config: let
-            system = pkgs.stdenv.hostPlatform.system;
-          in
-            pkgs.callPackage ./pkgs ({
-                minecraftNix = inputs.minecraft-nix.legacyPackages.${system};
-              }
-              // config);
-          mkLaunchers = throw "`mkLaunchers` has been replaced by `mkMinecraftPkgs`";
+          mkMinecraftPkgs = throw "`mkMinecraftPkgs` has been removed, please use the module system";
+          mkLaunchers = throw "`mkLaunchers` has been removed, please use the module system";
         };
       };
       perSystem = {

@@ -1,7 +1,12 @@
 [
+  ./minecraft/build/distribution.nix
+  ./minecraft/build/minecraft-nix.nix
   ./minecraft/game/version.nix
-  ./minecraft/mods.nix
+  ./minecraft/server/eula.nix
   ./minecraft/build.nix
+  ./minecraft/files.nix
+  ./minecraft/launch-script.nix
+  ./minecraft/mods.nix
   ./misc/lock.nix
   ./misc/name.nix
   ./misc/update.nix

@@ -92,11 +92,20 @@
   fileOptions = lib.types.submodule ../_common/file.nix;
 in {
   options = {
-    minecraft.mods = lib.mkOption {
-      type = with lib.types; listOf (oneOf [(submodule modOptions) str]);
-      description = lib.mdDoc ''
-        Fabric mods definition.
-      '';
+    minecraft = {
+      modLoader = lib.mkOption {
+        type = with lib.types; nullOr (enum ["fabric"]);
+        default = "fabric";
+        description = lib.mkDoc ''
+          Mod loader to use.
+        '';
+      };
+      mods = lib.mkOption {
+        type = with lib.types; listOf (oneOf [(submodule modOptions) str]);
+        description = lib.mdDoc ''
+          Fabric mods definition.
+        '';
+      };
     };
   };
 }
