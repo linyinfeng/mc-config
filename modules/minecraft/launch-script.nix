@@ -28,7 +28,7 @@ in {
             # allow deps only script
               {inherit (s) deps;}
               // (optionalAttrs (s.text != null)
-              { inherit (s) text; }))
+                {inherit (s) text;}))
           scripts;
       };
       path = mkOption {

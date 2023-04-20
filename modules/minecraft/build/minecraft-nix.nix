@@ -41,7 +41,7 @@ in {
       inherit mods;
     };
     minecraft-nix.serverConfig = {
-      inherit (config.minecraft) files  launchScript;
+      inherit (config.minecraft) files launchScript;
       inherit mods;
     };
     minecraft.build = {
