@@ -47,10 +47,23 @@ in {
   ];
 
   config = {
-    perSystem = {self', ...}: {
-      packages = mkAllWith mkPackages self'.minecraftConfigurations;
-      apps = mkAllWith mkApps self'.minecraftConfigurations;
-      checks = mkAllWith mkChecks self'.minecraftConfigurations;
+    perSystem = {
+      options,
+      config,
+      self',
+      ...
+    }: {
+      config =
+        {
+          packages = mkAllWith mkPackages config.minecraftConfigurations;
+          apps = mkAllWith mkApps self'.minecraftConfigurations;
+          checks = mkAllWith mkChecks self'.minecraftConfigurations;
+        }
+        // (
+          if options ? overlayAttrs
+          then {overlayAttrs = config.packages;}
+          else {}
+        );
     };
   };
 }
