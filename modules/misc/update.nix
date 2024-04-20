@@ -12,7 +12,7 @@ in {
     update = {
       package = lib.mkOption {
         type = lib.types.package;
-        description = lib.mdDoc ''
+        description = ''
           Update package to use.
         '';
         default = self.packages.${system}.update;
@@ -20,7 +20,7 @@ in {
       };
       script = lib.mkOption {
         type = lib.types.package;
-        description = lib.mdDoc ''
+        description = ''
           Update script to create lock file.
         '';
         defaultText = "\${config.update.package}/bin/update --config CONFIG_FILE --lock-file \${config.update.lockFile}";
@@ -41,7 +41,7 @@ in {
       };
       lockFile = lib.mkOption {
         type = lib.types.str;
-        description = lib.mdDoc ''
+        description = ''
           Output path of the lock file, used by the update script.
         '';
         default = "${config.name}.lock";

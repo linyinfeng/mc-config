@@ -8,28 +8,28 @@
       name = lib.mkOption {
         type = with lib.types; nullOr str;
         default = null;
-        description = lib.mdDoc ''
+        description = ''
           Name of the mod.
         '';
       };
       modrinthId = lib.mkOption {
         type = with lib.types; nullOr str;
         default = null;
-        description = lib.mdDoc ''
+        description = ''
           Modrinth Project ID of the mod, can be found in "technical information" on webpage.
         '';
       };
       curseForgeId = lib.mkOption {
         type = with lib.types; nullOr str;
         default = null;
-        description = lib.mdDoc ''
+        description = ''
           CurseForge Project ID of the mod, can be found in "About Project" on webpage.
         '';
       };
       url = lib.mkOption {
         type = with lib.types; nullOr str;
         default = null;
-        description = lib.mdDoc ''
+        description = ''
           Modrinth or CurseForge URL of the mod.
         '';
       };
@@ -37,7 +37,7 @@
         type = lib.types.str;
         default = "release";
         example = "release|beta";
-        description = lib.mdDoc ''
+        description = ''
           Regex to match version type.
           Possible version types: "release", "beta", "alpha".
         '';
@@ -46,7 +46,7 @@
         type = lib.types.str;
         default = ".*";
         example = ".*\.jar$";
-        description = lib.mdDoc ''
+        description = ''
           Regex to match filename. Some mod contains multiple files,
           use this option for filtering or use the `primaryFileOnly` option.
         '';
@@ -54,7 +54,7 @@
       primaryFileOnly = lib.mkOption {
         type = lib.types.bool;
         default = false;
-        description = lib.mdDoc ''
+        description = ''
           Only use the primary file. Some mod contains multiple files,
           use this option to select the primary file.
         '';
@@ -62,28 +62,28 @@
       fakeGameVersion = lib.mkOption {
         type = with lib.types; nullOr str;
         default = null;
-        description = lib.mdDoc ''
+        description = ''
           Check the mod using this game version instead of `config.game.version`.
         '';
       };
       manual = lib.mkOption {
         type = lib.types.bool;
         default = false;
-        description = lib.mdDoc ''
+        description = ''
           Manually specify version and files.
         '';
       };
       version = lib.mkOption {
         type = with lib.types; nullOr str;
         default = null;
-        description = lib.mdDoc ''
+        description = ''
           Manually specify mod version.
         '';
       };
       files = lib.mkOption {
         type = lib.types.listOf fileOptions;
         default = [];
-        description = lib.mdDoc ''
+        description = ''
           Manually specify mod files.
         '';
       };
@@ -102,7 +102,7 @@ in {
       };
       mods = lib.mkOption {
         type = with lib.types; listOf (oneOf [(submodule modOptions) str]);
-        description = lib.mdDoc ''
+        description = ''
           Fabric mods definition.
         '';
       };

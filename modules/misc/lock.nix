@@ -17,13 +17,13 @@ in {
     lock = {
       file = lib.mkOption {
         type = lib.types.path;
-        description = lib.mdDoc ''
+        description = ''
           Genearted lockFile, used by `mkMinecraftPkgs`.
         '';
       };
       content = lib.mkOption {
         type = lib.types.submodule lockContentOptions;
-        description = lib.mdDoc ''
+        description = ''
           Content of lock file.
         '';
         default = builtins.fromJSON (builtins.readFile cfg.file);
