@@ -39,7 +39,9 @@
         pkgs,
         ...
       }: {
-        packages.update = pkgs.callPackage ./update {};
+        packages.update = pkgs.callPackage ./update {
+          inherit (inputs) minecraft-json;
+        };
         checks = self'.packages;
         treefmt = {
           projectRootFile = "flake.nix";

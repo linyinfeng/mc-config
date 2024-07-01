@@ -6,6 +6,9 @@
   cfg = config.lock;
   lockContentOptions = {
     options = {
+      game.version = lib.mkOption {
+        type = lib.types.str;
+      };
       mods = lib.mkOption {
         type = lib.types.listOf fileOptions;
       };

@@ -10,6 +10,7 @@ import shutil
 import os
 import urllib.parse
 import traceback
+import natsort
 
 FABRIC_META = "https://meta.fabricmc.net/v2"
 MODRINTH_API = "https://api.modrinth.com/v2"
@@ -25,6 +26,7 @@ def cli():
     parser.add_argument(
         "--log", metavar="LEVEL", type=str, default="INFO", help="log level"
     )
+    parser.add_argument("--game-manifests", metavar="FILE", type=str)
     parser.add_argument("--dry-run", action=argparse.BooleanOptionalAction)
     args = parser.parse_args()
 
@@ -136,10 +138,44 @@ def parse_mod_url(url: str):
 
 
 def update(args, apis, config):
-    lock = {"mods": []}
-    game_version = config["game"]["version"]
+    lock = {"game": dict(), "mods": []}
+    update_game(args, config["game"], lock["game"])
+    game_version = lock["game"]["version"]
     update_mods(args, apis, game_version, config["mods"], lock["mods"])
     return lock
+
+
+def update_game(args, game_cfg, game_lock):
+    version = lookup(game_cfg, "version", None)
+    if version is not None:
+        logging.info(f"version explicitly specified: '{version}'")
+        game_lock["version"] = version
+        return
+    version_regex_str = lookup(game_cfg, "versionRegex", None)
+    if version_regex_str is not None:
+        version_regex = re.compile(version_regex_str)
+        manifests_file = args.game_manifests
+        with open(manifests_file) as f:
+            logging.info(f"loading game manifests file '{manifests_file}'...")
+            manifests = json.load(f)
+        versions = manifests.keys()
+
+        def version_filter(version):
+            return version_regex.match(version)
+
+        filtered_versions = [*filter(version_filter, versions)]
+        # https://github.com/SethMMorton/natsort/wiki/Examples-and-Recipes#sorting-more-expressive-versioning-schemes
+        sorted_versions = natsort.natsorted(
+            filtered_versions, key=lambda x: x.replace(".", "~") + "z"
+        )
+        if len(sorted_versions) == 0:
+            raise RuntimeError(f"can not find any valid game versions")
+        logging.info(f"matched game versions: {sorted_versions}")
+        version = sorted_versions[-1]
+        logging.info(f"select game version: '{version}'")
+        game_lock["version"] = version
+        return
+    raise RuntimeError("Neither game.version nor game.versionRegex is specified")
 
 
 def update_mods(args, apis, game_version, mods_cfg, mods_lock):
@@ -181,9 +217,7 @@ def update_mod_modrinth(args, modrinth, game_version, name, mod_cfg, mods_lock):
     version_type_regex = re.compile(lookup(mod_cfg, "versionTypeRegex", "release"))
 
     def version_filter(version):
-        if not version_type_regex.match(version["version_type"]):
-            return False
-        return True
+        return version_type_regex.match(version["version_type"])
 
     filtered_versions = [*filter(version_filter, compatible_versions)]
     if len(filtered_versions) == 0:

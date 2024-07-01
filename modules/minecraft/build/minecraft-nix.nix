@@ -10,6 +10,7 @@
 
   minecraftNixPkgs = inputs.minecraft-nix.legacyPackages.${system}."v${cfg.game.version}".${config.minecraft.modLoader};
 
+  gameVersion = config.lock.content.game.version;
   lockMods = config.lock.content.mods;
   manualMods = lib.flatten (map (m:
     if lib.isAttrs m
@@ -25,7 +26,7 @@ in {
       game.version = lib.mkOption {
         type = lib.types.str;
         readOnly = true;
-        default = lib.replaceStrings ["." " "] ["_" "_"] config.minecraft.game.version;
+        default = lib.replaceStrings ["." " "] ["_" "_"] gameVersion;
       };
       clientConfig = lib.mkOption {
         type = lib.types.anything;

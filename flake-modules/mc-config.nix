@@ -1,17 +1,13 @@
 {
-  inputs,
   lib,
   flake-parts-lib,
   ...
 }: let
   inherit (lib) mkOption types;
   inherit (flake-parts-lib) mkTransposedPerSystemModule;
-  mkPackage = name: key: value:
-    if lib.isDerivation value
-    then [(lib.nameValuePair "minecraft-${name}-${key}" value)]
-    else [];
+  mkPackage = name: key: value: lib.nameValuePair "minecraft-${name}-${key}" value;
   mkPackages = name: mcCfg:
-    lib.flatten (lib.mapAttrsToList (mkPackage name) mcCfg.config.minecraft.build)
+    lib.mapAttrsToList (mkPackage name) mcCfg.config.minecraft.build
     ++ [
       (lib.nameValuePair "minecraft-${name}-update" mcCfg.config.update.script)
     ];
@@ -30,7 +26,7 @@
     })
   ];
   mkChecks = mkPackages;
-  mkAllWith = fn: mcCfgs: lib.listToAttrs (lib.flatten (lib.mapAttrsToList fn mcCfgs));
+  mkAllWith = fn: mcCfgs: lib.listToAttrs (lib.concatLists (lib.mapAttrsToList fn mcCfgs));
 in {
   imports = [
     (mkTransposedPerSystemModule {
