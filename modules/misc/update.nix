@@ -26,7 +26,7 @@ in {
         defaultText = "\${config.update.package}/bin/update --config CONFIG_FILE --lock-file \${config.update.lockFile}";
         default = let
           configContent = {
-            inherit (config.minecraft) game mods;
+            inherit (config.minecraft) game mods modDefaults;
           };
           configFile =
             pkgs.writeText "mc-config-${config.name}.json"

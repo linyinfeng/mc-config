@@ -113,6 +113,12 @@ def preprocess(args, apis, config):
 
             mods_cfg[k].update(new_cfg)
 
+    mod_defaults_cfg = lookup(config, "modDefaults", dict())
+    for k, mod_cfg in enumerate(mods_cfg):
+        for setting, default in mod_defaults_cfg.items():
+            if default is not None and lookup(mod_cfg, setting, None) is None:
+                mod_cfg[setting] = default
+
 
 MOD_URL_PATTERNS = {
     "modrinth": re.compile("^https://modrinth.com/(?:mod|plugin)/(?P<slug>.*)$"),

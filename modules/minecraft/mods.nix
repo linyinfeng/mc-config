@@ -1,6 +1,6 @@
 {
+  config,
   lib,
-  options,
   ...
 }: let
   modOptions = {
@@ -33,15 +33,6 @@
           Modrinth or CurseForge URL of the mod.
         '';
       };
-      versionTypeRegex = lib.mkOption {
-        type = lib.types.str;
-        default = "release";
-        example = "release|beta";
-        description = ''
-          Regex to match version type.
-          Possible version types: "release", "beta", "alpha".
-        '';
-      };
       filenameRegex = lib.mkOption {
         type = lib.types.str;
         default = ".*";
@@ -49,14 +40,6 @@
         description = ''
           Regex to match filename. Some mod contains multiple files,
           use this option for filtering or use the `primaryFileOnly` option.
-        '';
-      };
-      primaryFileOnly = lib.mkOption {
-        type = lib.types.bool;
-        default = false;
-        description = ''
-          Only use the primary file. Some mod contains multiple files,
-          use this option to select the primary file.
         '';
       };
       fakeGameVersion = lib.mkOption {
@@ -89,7 +72,36 @@
       };
     };
   };
+  modSettingOptions = defaults: {
+    options = {
+      versionTypeRegex = lib.mkOption {
+        type = lib.types.str;
+        default = "release";
+        example = "release|beta";
+        description = ''
+          Regex to match version type.
+          Possible version types: "release", "beta", "alpha".
+        '';
+      };
+      primaryFileOnly = lib.mkOption {
+        type = lib.types.bool;
+        default = false;
+        description = ''
+          Only use the primary file. Some mod contains multiple files,
+          use this option to select the primary file.
+        '';
+      };
+    };
+    config = lib.mkDefault defaults;
+  };
   fileOptions = lib.types.submodule ../_common/file.nix;
+  modWithSettingOptions = with lib.types;
+    submoduleWith {
+      modules = [
+        modOptions
+        (modSettingOptions config.minecraft.modDefaults)
+      ];
+    };
 in {
   options = {
     minecraft = {
@@ -100,8 +112,15 @@ in {
           Mod loader to use.
         '';
       };
+      modDefaults = lib.mkOption {
+        type = with lib.types; submodule (modSettingOptions {});
+        default = {};
+        description = lib.mkDoc ''
+          Default Fabric mods definition settings.
+        '';
+      };
       mods = lib.mkOption {
-        type = with lib.types; listOf (oneOf [(submodule modOptions) str]);
+        type = with lib.types; listOf (oneOf [modWithSettingOptions str]);
         description = ''
           Fabric mods definition.
         '';
