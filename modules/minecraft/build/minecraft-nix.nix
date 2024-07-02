@@ -11,15 +11,18 @@
   minecraftNixPkgs = inputs.minecraft-nix.legacyPackages.${system}."v${cfg.game.version}".${config.minecraft.modLoader};
 
   gameVersion = config.lock.content.game.version;
-  lockMods = config.lock.content.mods;
-  manualMods = lib.flatten (map (m:
-    if lib.isAttrs m
-    then m.files
-    else [])
-  config.minecraft.mods);
-  modFiles = lockMods ++ manualMods;
-  convertFile = f: pkgs.fetchurl ({name = f.filename;} // f.file);
-  mods = map convertFile modFiles;
+  makeItemFiles = kind: let
+    lockedItems = config.lock.content."${kind}s";
+    manualItems = lib.flatten (map (m:
+      if lib.isAttrs m
+      then m.files
+      else [])
+    config.minecraft."${kind}s");
+    itemFiles = lockedItems ++ manualItems;
+    convertFile = f: pkgs.fetchurl ({name = f.filename;} // f.file);
+    files = map convertFile itemFiles;
+  in
+    files;
 in {
   options = {
     minecraft-nix = {
@@ -39,11 +42,13 @@ in {
   config = {
     minecraft-nix.clientConfig = {
       inherit (config.minecraft) files launchScript;
-      inherit mods;
+      mods = makeItemFiles "mod";
+      shaderPacks = makeItemFiles "shaderPack";
+      resourcePacks = makeItemFiles "resourcePack";
     };
     minecraft-nix.serverConfig = {
       inherit (config.minecraft) files launchScript;
-      inherit mods;
+      mods = makeItemFiles "mod";
     };
     minecraft.build = {
       client = minecraftNixPkgs.client.withConfig [cfg.clientConfig];

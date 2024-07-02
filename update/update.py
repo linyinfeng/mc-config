@@ -17,6 +17,42 @@ MODRINTH_API = "https://api.modrinth.com/v2"
 CURSE_API = "https://api.curseforge.com/v1"
 CURSE_CDN = "https://edge.forgecdn.net"
 
+KINDS = ["mod", "shaderPack", "resourcePack"]
+
+CURSE_FORGE_GAME_ID_MC = 432
+# curl -X GET 'https://api.curseforge.com/v1/categories?gameId=432&classesOnly=true' | jq
+CURSE_FORGE_CLASS_ID = {
+    "mod": 6,
+    "shaderPack": 6552,
+    "resourcePack": 12,
+}
+CURSE_FORGE_LOADER_ID = {
+    "fabric": 4,
+}
+
+URL_PATTERNS = {
+    "mod": {
+        "modrinth": re.compile(
+            "^https://modrinth.com/(?:mod|plugin|datapack)/(?P<slug>.*)$"
+        ),
+        "curseForge": re.compile(
+            "^https://www.curseforge.com/minecraft/mc-mods/(?P<slug>.*)$"
+        ),
+    },
+    "shaderPack": {
+        "modrinth": re.compile("^https://modrinth.com/(?:shader)/(?P<slug>.*)$"),
+        "curseForge": re.compile(
+            "^https://www.curseforge.com/minecraft/shaders/(?P<slug>.*)$"
+        ),
+    },
+    "resourcePack": {
+        "modrinth": re.compile("^https://modrinth.com/(?:resourcepack)/(?P<slug>.*)$"),
+        "curseForge": re.compile(
+            "^https://www.curseforge.com/minecraft/texture-packs/(?P<slug>.*)$"
+        ),
+    },
+}
+
 
 def cli():
     parser = argparse.ArgumentParser(prog="update")
@@ -60,94 +96,93 @@ def main(args):
 def preprocess(args, apis, config):
     modrinth = apis["modrinth"]
     curse = apis["curseForge"]
-    CURSE_FORGE_CLASS_ID_MC_MOD = 6
-    CURSE_FORGE_GAME_ID_MC = 432
 
-    mods_cfg = config["mods"]
-    # bare strings are interpreted as urls
-    for k, v in enumerate(mods_cfg):
-        if isinstance(v, str):
-            mods_cfg[k] = {"url": v}
+    for kind in KINDS:
+        item_configs = config[kind + "s"]
+        # bare strings are interpreted as urls
+        for k, v in enumerate(item_configs):
+            if isinstance(v, str):
+                item_configs[k] = {"url": v}
 
-    # extract name and slug/id from url
-    # modrinth api support both id and slug
-    # curseforge api requires project id
-    for k, v in enumerate(mods_cfg):
-        url = lookup(v, "url", None)
-        if url is not None:
-            logging.info(f"preprocessing mod url '{url}'...")
+        # extract name and slug/id from url
+        # modrinth api support both id and slug
+        # curseforge api requires project id
+        for k, v in enumerate(item_configs):
+            url = lookup(v, "url", None)
+            if url is not None:
+                logging.info(f"preprocessing {kind} url '{url}'...")
 
-            exclusive_keys = ["name", "modrinthId", "curseForgeId"]
-            for ek in exclusive_keys:
-                if lookup(v, ek, None) is not None:
-                    raise RuntimeError(
-                        f"'{ek}' will be automatically extracted from url"
-                    )
+                exclusive_keys = ["name", "modrinthId", "curseForgeId"]
+                for ek in exclusive_keys:
+                    if lookup(v, ek, None) is not None:
+                        raise RuntimeError(
+                            f"'{ek}' will be automatically extracted from url"
+                        )
 
-            (website, slug) = parse_mod_url(url)
+                (website, slug) = parse_url(kind, url)
 
-            if website == "modrinth":
-                project_info = modrinth.get(f"project/{slug}")
-                new_cfg = {
-                    "name": f"{project_info['title']}",
-                    f"{website}Id": project_info["id"],
-                }
-            elif website == "curseForge":
-                search_results = curse.get(
-                    f"mods/search?gameId={CURSE_FORGE_GAME_ID_MC}&classId={CURSE_FORGE_CLASS_ID_MC_MOD}&slug={slug}"
-                )["data"]
-                # https://docs.curseforge.com/#search-mods
-                # query with classId and slug will result in a unique result
-                assert len(search_results) <= 1
-                if len(search_results) == 0:
-                    raise RuntimeError(
-                        f"unable to find mod on curseforge with slug '{slug}'"
-                    )
-                search_result = search_results[0]
-                new_cfg = {
-                    "name": search_result["name"],
-                    f"{website}Id": search_result["id"],
-                }
-            else:
-                raise RuntimeError("unreachable")
+                if website == "modrinth":
+                    project_info = modrinth.get(f"project/{slug}")
+                    new_cfg = {
+                        "name": f"{project_info['title']}",
+                        f"{website}Id": project_info["id"],
+                    }
+                elif website == "curseForge":
+                    search_results = curse.get(
+                        f"mods/search?gameId={CURSE_FORGE_GAME_ID_MC}&classId={CURSE_FORGE_CLASS_ID[kind]}&slug={slug}"
+                    )["data"]
+                    # https://docs.curseforge.com/#search-mods
+                    # query with classId and slug will result in a unique result
+                    assert len(search_results) <= 1
+                    if len(search_results) == 0:
+                        raise RuntimeError(
+                            f"unable to find {kind} on curseforge with slug '{slug}'"
+                        )
+                    search_result = search_results[0]
+                    new_cfg = {
+                        "name": search_result["name"],
+                        f"{website}Id": search_result["id"],
+                    }
+                else:
+                    raise RuntimeError("unreachable")
 
-            mods_cfg[k].update(new_cfg)
+                item_configs[k].update(new_cfg)
 
-    mod_defaults_cfg = lookup(config, "modDefaults", dict())
-    for k, mod_cfg in enumerate(mods_cfg):
-        for setting, default in mod_defaults_cfg.items():
-            if default is not None and lookup(mod_cfg, setting, None) is None:
-                mod_cfg[setting] = default
-
-
-MOD_URL_PATTERNS = {
-    "modrinth": re.compile("^https://modrinth.com/(?:mod|plugin)/(?P<slug>.*)$"),
-    "curseForge": re.compile(
-        "^https://www.curseforge.com/minecraft/mc-mods/(?P<slug>.*)$"
-    ),
-}
+        defaults = lookup(config, kind + "Defaults", dict())
+        for k, item_config in enumerate(item_configs):
+            for setting, default in defaults.items():
+                if default is not None and lookup(item_config, setting, None) is None:
+                    item_config[setting] = default
 
 
-def parse_mod_url(url: str):
+def parse_url(kind: str, url: str):
     """
     URL Examples:
 
         https://www.curseforge.com/minecraft/mc-mods/jei
         https://modrinth.com/mod/sodium
     """
-    for website, pat in MOD_URL_PATTERNS.items():
+    for website, pat in URL_PATTERNS[kind].items():
         match = pat.match(url)
         if match is not None:
             slug = match.group("slug")
             return (website, slug)
-    raise RuntimeError("invalid Mod URL: " + url)
+    raise RuntimeError(f"invalid {kind} URL: " + url)
 
 
 def update(args, apis, config):
-    lock = {"game": dict(), "mods": []}
+    lock = {"game": dict()}
+    for kind in KINDS:
+        lock[kind + "s"] = []
+
     update_game(args, config["game"], lock["game"])
     game_version = lock["game"]["version"]
-    update_mods(args, apis, game_version, config["mods"], lock["mods"])
+
+    for kind in KINDS:
+        loader = lookup(config, kind + "Loader", None)
+        update_items(
+            args, apis, game_version, kind, loader, config[kind + "s"], lock[kind + "s"]
+        )
     return lock
 
 
@@ -184,43 +219,65 @@ def update_game(args, game_cfg, game_lock):
     raise RuntimeError("Neither game.version nor game.versionRegex is specified")
 
 
-def update_mods(args, apis, game_version, mods_cfg, mods_lock):
-    for mod_cfg in mods_cfg:
-        name = mod_cfg["name"]
-        logging.info(f"updating mod '{name}'...")
-        update_mod(args, name, apis, game_version, mod_cfg, mods_lock)
+def update_items(args, apis, game_version, kind, loader, items_cfg, items_lock):
+    for item_cfg in items_cfg:
+        name = item_cfg["name"]
+        logging.info(f"updating {kind}: '{name}'...")
+        update_mod(args, name, apis, game_version, kind, loader, item_cfg, items_lock)
 
 
-def update_mod(args, name, apis, global_game_version, mod_cfg, mods_lock):
-    manual = lookup(mod_cfg, "manual", False)
+def update_mod(
+    args, name, apis, global_game_version, kind, loader, item_cfg, items_lock
+):
+    manual = lookup(item_cfg, "manual", False)
     if manual:
-        logging.info(f"skip mod '{name}'")
+        logging.info(f"skip {kind}: '{name}'")
         return
 
-    is_modrinth = lookup(mod_cfg, "modrinthId", False)
-    is_curse = lookup(mod_cfg, "curseForgeId", False)
+    is_modrinth = lookup(item_cfg, "modrinthId", False)
+    is_curse = lookup(item_cfg, "curseForgeId", False)
     assert is_modrinth or is_curse or manual
     assert not (is_modrinth and is_curse)
 
-    game_version = lookup(mod_cfg, "fakeGameVersion", global_game_version)
+    game_version = lookup(item_cfg, "fakeGameVersion", global_game_version)
 
     if is_modrinth:
-        update_mod_modrinth(
-            args, apis["modrinth"], game_version, name, mod_cfg, mods_lock
+        update_item_modrinth(
+            args,
+            apis["modrinth"],
+            game_version,
+            name,
+            kind,
+            loader,
+            item_cfg,
+            items_lock,
         )
     elif is_curse:
-        update_mod_curse(
-            args, apis["curseForge"], game_version, name, mod_cfg, mods_lock
+        update_item_curse(
+            args,
+            apis["curseForge"],
+            game_version,
+            name,
+            kind,
+            loader,
+            item_cfg,
+            items_lock,
         )
 
 
-def update_mod_modrinth(args, modrinth, game_version, name, mod_cfg, mods_lock):
-    modrinth_id = mod_cfg["modrinthId"]
+def update_item_modrinth(
+    args, modrinth, game_version, name, kind, loader, item_cfg, items_lock
+):
+    modrinth_id = item_cfg["modrinthId"]
+    if loader is not None:
+        loader_params = f'&loaders=["{loader}"]'
+    else:
+        loader_params = f""
     compatible_versions = modrinth.get(
-        f'project/{modrinth_id}/version?loaders=["fabric"]&game_versions=["{game_version}"]'
+        f'project/{modrinth_id}/version?game_versions=["{game_version}"]{loader_params}'
     )
 
-    version_type_regex = re.compile(lookup(mod_cfg, "versionTypeRegex", "release"))
+    version_type_regex = re.compile(lookup(item_cfg, "versionTypeRegex", "release"))
 
     def version_filter(version):
         return version_type_regex.match(version["version_type"])
@@ -229,14 +286,14 @@ def update_mod_modrinth(args, modrinth, game_version, name, mod_cfg, mods_lock):
     if len(filtered_versions) == 0:
         raise RuntimeError(f"can not find any valid versions for {name}")
     latest_version = modrinth_latest_version(filtered_versions)
-    mod_cfg["version"] = latest_version["version_number"]
+    item_cfg["version"] = latest_version["version_number"]
 
-    filename_regex = re.compile(lookup(mod_cfg, "filenameRegex", ".*"))
+    filename_regex = re.compile(lookup(item_cfg, "filenameRegex", ".*"))
 
     def file_filter(file):
         if not filename_regex.match(file["filename"]):
             return False
-        if lookup(mod_cfg, "primaryFileOnly", False):
+        if lookup(item_cfg, "primaryFileOnly", False):
             if not file["primary"]:
                 return False
         return True
@@ -253,18 +310,24 @@ def update_mod_modrinth(args, modrinth, game_version, name, mod_cfg, mods_lock):
     ]
     if len(file_list) == 0:
         raise RuntimeError(f"can not find any valid files for {name}")
-    mods_lock.extend(file_list)
+    items_lock.extend(file_list)
 
 
-def update_mod_curse(args, curse, game_version, name, mod_cfg, mods_lock):
-    curse_id = mod_cfg["curseForgeId"]
-    FABRIC_TYPE = 4
+def update_item_curse(
+    args, curse, game_version, name, kind, loader, item_cfg, items_lock
+):
+    curse_id = item_cfg["curseForgeId"]
+    loader_type = lookup(CURSE_FORGE_LOADER_ID, loader, None)
+    if loader_type is not None:
+        loader_params = f"&modLoaderType={loader_type}"
+    else:
+        loader_params = f""
     # no paginator support, at most 50 versions
     compatible_versions = curse.get(
-        f"mods/{curse_id}/files?gameVersion={game_version}&modLoaderType={FABRIC_TYPE}"
+        f"mods/{curse_id}/files?gameVersion={game_version}{loader_params}"
     )["data"]
 
-    version_type_regex = re.compile(lookup(mod_cfg, "versionTypeRegex", "release"))
+    version_type_regex = re.compile(lookup(item_cfg, "versionTypeRegex", "release"))
 
     def version_filter(version):
         if not version["isAvailable"]:
@@ -276,10 +339,10 @@ def update_mod_curse(args, curse, game_version, name, mod_cfg, mods_lock):
 
     filtered_versions = [*filter(version_filter, compatible_versions)]
     if len(filtered_versions) == 0:
-        raise RuntimeError(f"can not find any valid versions for ${name}")
+        raise RuntimeError(f"can not find any valid versions for {name}")
     latest_version = curse_latest_version(filtered_versions)
 
-    mod_cfg["version"] = latest_version["displayName"]
+    item_cfg["version"] = latest_version["displayName"]
     filename = latest_version["fileName"]
     ALGO_SHA1 = 1
     hash = [*filter(lambda h: h["algo"] == ALGO_SHA1, latest_version["hashes"])][0]
@@ -294,7 +357,7 @@ def update_mod_curse(args, curse, game_version, name, mod_cfg, mods_lock):
         ]
         id_part = "/".join(file_id_splitted)
         download_url = f"{CURSE_CDN}/files/{id_part}/{filename}"
-    mods_lock.append(
+    items_lock.append(
         {
             "filename": filename,
             "file": {
@@ -313,19 +376,12 @@ def lookup(d, key, default):
 
 
 def get_url(url, **kw_args):
+    logging.debug(f"get '{url}'...")
     response = requests.get(url, **kw_args)
     if response.status_code == 200:
         return response
     else:
         raise RuntimeError(f"failed to get '{url}': {response.status_code}")
-
-
-def get_fabric_meta(resource):
-    return get_url(f"{FABRIC_META}/{resource}").json()
-
-
-def fabric_first_stable(response):
-    return next(filter(lambda x: x["stable"], response))
 
 
 def nix_prefetch(url):

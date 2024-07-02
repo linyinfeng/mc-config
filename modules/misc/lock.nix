@@ -12,6 +12,12 @@
       mods = lib.mkOption {
         type = lib.types.listOf fileOptions;
       };
+      resourcePacks = lib.mkOption {
+        type = lib.types.listOf fileOptions;
+      };
+      shaderPacks = lib.mkOption {
+        type = lib.types.listOf fileOptions;
+      };
     };
   };
   fileOptions = lib.types.submodule ../_common/file.nix;

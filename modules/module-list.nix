@@ -1,12 +1,13 @@
 [
   ./minecraft/build/distribution.nix
   ./minecraft/build/minecraft-nix.nix
+  ./minecraft/game/allowed-symlinks.nix
   ./minecraft/game/version.nix
   ./minecraft/server/eula.nix
   ./minecraft/build.nix
   ./minecraft/files.nix
   ./minecraft/launch-script.nix
-  ./minecraft/mods.nix
+  ./minecraft/items.nix
   ./misc/lock.nix
   ./misc/name.nix
   ./misc/update.nix

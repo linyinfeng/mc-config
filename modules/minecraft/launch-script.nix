@@ -1,7 +1,7 @@
 # https://github.com/Ninlives/minecraft.nix/blob/main/module/common/launch-script.nix
 {lib, ...}: let
   inherit (lib) mkOption mapAttrs optionalAttrs;
-  inherit (lib.types) attrsOf listOf nullOr str lines submodule oneOf package;
+  inherit (lib.types) attrsOf listOf nullOr str lines submodule oneOf package bool;
   scriptOptions = {
     options = {
       deps = mkOption {
@@ -30,6 +30,13 @@ in {
               // (optionalAttrs (s.text != null)
                 {inherit (s) text;}))
           scripts;
+      };
+      inheritPath = mkOption {
+        type = bool;
+        default = false;
+        description = ''
+          Whether to inherit the PATH environment variable from parent process.
+        '';
       };
       path = mkOption {
         type = listOf (oneOf [package str]);
