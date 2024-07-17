@@ -23,6 +23,10 @@
     files = map convertFile itemFiles;
   in
     files;
+
+  onlyFor = type: cfgs:
+    lib.mapAttrs (_: cfg: lib.removeAttrs cfg ["type"])
+    (lib.filterAttrs (_: cfg: lib.elem cfg.type [type "both"]) cfgs);
 in {
   options = {
     minecraft-nix = {
@@ -41,13 +45,23 @@ in {
   };
   config = {
     minecraft-nix.clientConfig = {
-      inherit (config.minecraft) files launchScript;
+      files = onlyFor "client" config.minecraft.files;
+      launchScript =
+        config.minecraft.launchScript
+        // {
+          preparation = onlyFor "client" config.minecraft.launchScript.preparation;
+        };
       mods = makeItemFiles "mod";
       shaderPacks = makeItemFiles "shaderPack";
       resourcePacks = makeItemFiles "resourcePack";
     };
     minecraft-nix.serverConfig = {
-      inherit (config.minecraft) files launchScript;
+      files = onlyFor "server" config.minecraft.files;
+      launchScript =
+        config.minecraft.launchScript
+        // {
+          preparation = onlyFor "server" config.minecraft.launchScript.preparation;
+        };
       mods = makeItemFiles "mod";
     };
     minecraft.build = {

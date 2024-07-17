@@ -1,9 +1,13 @@
 # https://github.com/Ninlives/minecraft.nix/blob/main/module/common/launch-script.nix
 {lib, ...}: let
   inherit (lib) mkOption mapAttrs optionalAttrs;
-  inherit (lib.types) attrsOf listOf nullOr str lines submodule oneOf package bool;
+  inherit (lib.types) attrsOf listOf nullOr str lines submodule oneOf package bool enum;
   scriptOptions = {
     options = {
+      type = mkOption {
+        type = enum ["server" "client" "both"];
+        default = "both";
+      };
       deps = mkOption {
         type = listOf str;
         default = [];
@@ -26,7 +30,7 @@ in {
         apply = scripts:
           mapAttrs (_name: s:
             # allow deps only script
-              {inherit (s) deps;}
+              {inherit (s) type deps;}
               // (optionalAttrs (s.text != null)
                 {inherit (s) text;}))
           scripts;

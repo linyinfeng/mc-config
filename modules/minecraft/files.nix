@@ -5,7 +5,7 @@
   ...
 }: let
   inherit (lib) mkOption mkIf mapAttrs;
-  inherit (lib.types) attrsOf bool nullOr path str submodule;
+  inherit (lib.types) attrsOf bool nullOr path str submodule enum;
   inherit (pkgs) writeText;
   fileOptions = {
     config,
@@ -13,6 +13,10 @@
     ...
   }: {
     options = {
+      type = mkOption {
+        type = enum ["server" "client" "both"];
+        default = "both";
+      };
       name = mkOption {
         type = str;
         default = name;
