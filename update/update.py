@@ -356,12 +356,12 @@ def update_item_curse(
             file_id[i : i + SPLIT_SIZE] for i in range(0, len(file_id), SPLIT_SIZE)
         ]
         id_part = "/".join(file_id_splitted)
-        download_url = f"{CURSE_CDN}/files/{id_part}/{filename}"
+        download_url = f"{CURSE_CDN}/files/{id_part}/{urllib.parse.quote(filename)}"
     items_lock.append(
         {
             "filename": filename,
             "file": {
-                "url": curse_quote_url(download_url),
+                "url": download_url,
                 "sha1": hash["value"],
             },
         }
@@ -468,12 +468,6 @@ def curse_extract_date_from_version(version):
 
 def curse_latest_version(versions):
     return sorted(versions, key=curse_extract_date_from_version, reverse=True)[0]
-
-
-def curse_quote_url(url):
-    result = urllib.parse.urlparse(url)
-    quoted = result._replace(path=urllib.parse.quote(result.path))
-    return urllib.parse.urlunparse(quoted)
 
 
 if __name__ == "__main__":
