@@ -76,11 +76,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1739496440,
-        "narHash": "sha256-B+l/eG7iZHYVpCzTJXM8Gyk3lwl08SuLpz8k2/PmhBY=",
+        "lastModified": 1739582804,
+        "narHash": "sha256-olR4vtmfVINHb0iiWtRIjyKIdIyGTWLlbMdeai4aCRc=",
         "owner": "ninlives",
         "repo": "minecraft.nix",
-        "rev": "b0b772bc8e1d6e46ace717390158ab5aba285d13",
+        "rev": "8d09a77cce874e39ee8244d369f87ed5333fc975",
         "type": "github"
       },
       "original": {
