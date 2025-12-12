@@ -1,7 +1,6 @@
 [
   ./minecraft/build/distribution.nix
   ./minecraft/build/minecraft-nix.nix
-  ./minecraft/game/allowed-symlinks.nix
   ./minecraft/game/version.nix
   ./minecraft/server/eula.nix
   ./minecraft/build.nix
