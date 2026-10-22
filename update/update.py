@@ -119,7 +119,7 @@ def preprocess(args, apis, config):
                             f"'{ek}' will be automatically extracted from url"
                         )
 
-                (website, slug) = parse_url(kind, url)
+                website, slug = parse_url(kind, url)
 
                 if website == "modrinth":
                     project_info = modrinth.get(f"project/{slug}")
